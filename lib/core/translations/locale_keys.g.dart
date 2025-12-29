@@ -1,0 +1,77 @@
+// DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
+
+// ignore_for_file: constant_identifier_names
+
+abstract class LocaleKeys {
+  static const hello = 'hello';
+  static const welcome = 'welcome';
+  static const explore = 'explore';
+  static const technology = 'technology';
+  static const travel = 'travel';
+  static const business = 'business';
+  static const entertainment = 'entertainment';
+  static const cancel = 'cancel';
+  static const search = 'search';
+  static const searchResults = 'searchResults';
+  static const noData = 'noData';
+  static const userName = 'userName';
+  static const password = 'password';
+  static const email = 'email';
+  static const signUp = 'signUp';
+  static const logIn = 'logIn';
+  static const logOut = 'logOut';
+  static const home = 'home';
+  static const profile = 'profile';
+  static const about = 'about';
+  static const settings = 'settings';
+  static const language = 'language';
+  static const theme = 'theme';
+  static const dark = 'dark';
+  static const light = 'light';
+  static const darkMode = 'darkMode';
+  static const lightMode = 'lightMode';
+  static const delete = 'delete';
+  static const delivery = 'delivery';
+  static const location = 'location';
+  static const welcomeToOurApp = 'welcomeToOurApp';
+  static const description = 'description';
+  static const price = 'price';
+  static const quantity = 'quantity';
+  static const total = 'total';
+  static const add = 'add';
+  static const remove = 'remove';
+  static const addProduct = 'addProduct';
+  static const editProduct = 'editProduct';
+  static const deleteProduct = 'deleteProduct';
+  static const loginToContinue = 'loginToContinue';
+  static const enterValidEmail = 'enterValidEmail';
+  static const enterValidPassword = 'enterValidPassword';
+  static const enterValidUserName = 'enterValidUserName';
+  static const enterValidLocation = 'enterValidLocation';
+  static const enterValidDescription = 'enterValidDescription';
+  static const enterValidPrice = 'enterValidPrice';
+  static const enterValidQuantity = 'enterValidQuantity';
+  static const enterValidTotal = 'enterValidTotal';
+  static const emailIsRequired = 'emailIsRequired';
+  static const passwordIsRequired = 'passwordIsRequired';
+  static const userNameIsRequired = 'userNameIsRequired';
+  static const locationIsRequired = 'locationIsRequired';
+  static const descriptionIsRequired = 'descriptionIsRequired';
+  static const yes = 'yes';
+  static const no = 'no';
+  static const confirmDelete = 'confirmDelete';
+  static const confirmLogout = 'confirmLogout';
+  static const confirmPassword = 'confirmPassword';
+  static const enterValidConfirmPassword = 'enterValidConfirmPassword';
+  static const passwordNotMatch = 'passwordNotMatch';
+  static const dontHaveAccount = 'dontHaveAccount';
+  static const alreadyHaveAccount = 'alreadyHaveAccount';
+  static const checkout = 'checkout';
+  static const cart = 'cart';
+  static const orderHistory = 'orderHistory';
+  static const WelcomeBack = 'WelcomeBack';
+  static const continueAsAGuest = 'continueAsAGuest';
+  static const edite = 'edite';
+  static const editeProfile = 'editeProfile';
+  static const passwordDoesNotMatch = 'passwordDoesNotMatch';
+}
