@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -11,6 +12,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hungry/core/consts/app_assets.dart';
 import 'package:hungry/core/consts/app_colors.dart';
 import 'package:hungry/core/routing/app_routes.dart';
+import 'package:hungry/core/shared/custom_dialog.dart';
 import 'package:hungry/core/shared/custom_payment_card.dart';
 import 'package:hungry/core/shared/custom_text.dart';
 import 'package:hungry/core/translations/locale_keys.g.dart';
@@ -68,6 +70,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
         _addressController.text = model?.address ?? '123 Main St, Anytown, USA';
         _nameController.text = model?.name ?? '';
       }
+      if (!mounted) return;
+      snackBarDialog(
+        context,
+        message: 'Profile updated successfully 🎉🥳',
+        type: AnimatedSnackBarType.success,
+        title: 'Success',
+      );
       setState(() {
         isEditingProfile = false;
       });

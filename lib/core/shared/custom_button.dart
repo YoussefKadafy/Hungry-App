@@ -11,11 +11,14 @@ class CustomButton extends StatelessWidget {
     required this.text,
     this.onTap,
     this.iconData,
+    this.textColor,
+    this.backgroundColor,
   });
   final double width, height;
   final String text;
   final void Function()? onTap;
   final Widget? iconData;
+  final Color? textColor, backgroundColor;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -27,7 +30,7 @@ class CustomButton extends StatelessWidget {
         width: width.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12.r),
-          color: AppColors.primaryColor,
+          color: backgroundColor ?? AppColors.primaryColor,
         ),
 
         child: Row(
@@ -39,7 +42,7 @@ class CustomButton extends StatelessWidget {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
-                color: Colors.white,
+                color: textColor ?? Colors.white,
               ),
             ),
             8.width,

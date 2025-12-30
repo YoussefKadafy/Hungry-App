@@ -1,11 +1,12 @@
 import 'dart:developer';
 
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hungry/core/consts/app_colors.dart';
 import 'package:hungry/core/routing/app_routes.dart';
+import 'package:hungry/core/shared/custom_dialog.dart';
 import 'package:hungry/core/shared/total_price_and_cart_widget.dart';
-import 'package:hungry/core/utils/cart_notifier.dart';
 import 'package:hungry/core/utils/sized_box_extension.dart';
 import 'package:hungry/features/cart/data/models/add_to_cart_model.dart';
 import 'package:hungry/features/cart/data/models/cart_model/cart_model.dart';
@@ -25,16 +26,18 @@ class _CartScreenState extends State<CartScreen> {
   bool isLoading = false;
   String? errorMessage;
   int? removingItemId;
-  bool isOrderSaved = false;
   Future<void> removeItemFromCart(int itemId) async {
     try {
       setState(() => removingItemId = itemId);
       final message = await cartRepo.removeItemFromCart(itemId);
 
       if (!mounted) return;
-      ScaffoldMessenger.of(
+      snackBarDialog(
         context,
-      ).showSnackBar(SnackBar(content: Text(message)));
+        message: message,
+        type: AnimatedSnackBarType.success,
+        title: 'Deleted Successfully',
+      );
 
       await getCart(); // this already updates loading
     } catch (e) {
@@ -62,32 +65,6 @@ class _CartScreenState extends State<CartScreen> {
         isLoading = false;
         setState(() {});
       }
-    }
-  }
-
-  void refreshCart() {
-    getCart();
-  }
-
-  Future<void> saveOrder(CartRequestModel request) async {
-    try {
-      isOrderSaved = true;
-      setState(() {});
-      final response = await cartRepo.saveOrder(request);
-
-      if (!mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(response)));
-      isOrderSaved = false;
-      setState(() {});
-    } catch (e) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(e.toString())));
-      isOrderSaved = false;
-      setState(() {});
     }
   }
 
@@ -135,10 +112,12 @@ class _CartScreenState extends State<CartScreen> {
                   }).toList(),
                 );
 
-                saveOrder(request);
                 context.pushNamed(
                   AppRoutes.checkout,
-                  extra: totalPrice.toStringAsFixed(2),
+                  extra: {
+                    'totalPrice': totalPrice.toStringAsFixed(2),
+                    'cartRequestModel': request,
+                  },
                 );
               },
             ),

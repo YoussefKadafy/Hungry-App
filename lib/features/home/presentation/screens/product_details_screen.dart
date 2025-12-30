@@ -1,6 +1,8 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hungry/core/shared/custom_dialog.dart';
 import 'package:hungry/core/shared/custom_snack_bar.dart';
 import 'package:hungry/core/utils/cart_notifier.dart';
 import 'package:hungry/core/utils/sized_box_extension.dart';
@@ -60,7 +62,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           isAddedToCartLoading = false;
         });
         if (mounted) {
-          showCustomSnackBar(context, response.message);
+          snackBarDialog(
+            context,
+            message: 'Added to cart successfully 🎉🥳',
+            type: AnimatedSnackBarType.success,
+            title: 'Success',
+          );
         }
       }
     } catch (e) {

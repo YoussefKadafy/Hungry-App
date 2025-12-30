@@ -12,6 +12,7 @@ class HeadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final firstName = userName.split(' ').first;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -27,7 +28,7 @@ class HeadingWidget extends StatelessWidget {
             5.height,
             CustomText(
               text:
-                  'Are you Hungry $userName ? \nYou\'ve come to the right place',
+                  'Are you Hungry $firstName ? \nYou\'ve come to the right place',
               fontSize: 18,
               color: AppColors.darkPrimaryColor,
             ),
