@@ -2,7 +2,7 @@ import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hungry/core/consts/app_colors.dart';
-import 'package:hungry/core/shared/custom_dialog.dart';
+import 'package:hungry/core/shared/snack_bar_dialog.dart';
 import 'package:hungry/core/shared/custom_payment_card.dart';
 import 'package:hungry/core/shared/custom_text.dart';
 import 'package:hungry/core/shared/total_price_and_cart_widget.dart';

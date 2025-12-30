@@ -12,7 +12,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hungry/core/consts/app_assets.dart';
 import 'package:hungry/core/consts/app_colors.dart';
 import 'package:hungry/core/routing/app_routes.dart';
-import 'package:hungry/core/shared/custom_dialog.dart';
+import 'package:hungry/core/shared/snack_bar_dialog.dart';
 import 'package:hungry/core/shared/custom_payment_card.dart';
 import 'package:hungry/core/shared/custom_text.dart';
 import 'package:hungry/core/translations/locale_keys.g.dart';

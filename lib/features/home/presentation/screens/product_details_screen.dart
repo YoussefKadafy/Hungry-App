@@ -2,7 +2,7 @@ import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hungry/core/shared/custom_dialog.dart';
+import 'package:hungry/core/shared/snack_bar_dialog.dart';
 import 'package:hungry/core/shared/custom_snack_bar.dart';
 import 'package:hungry/core/utils/cart_notifier.dart';
 import 'package:hungry/core/utils/sized_box_extension.dart';

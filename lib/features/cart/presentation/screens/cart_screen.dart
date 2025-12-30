@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hungry/core/consts/app_colors.dart';
 import 'package:hungry/core/routing/app_routes.dart';
-import 'package:hungry/core/shared/custom_dialog.dart';
+import 'package:hungry/core/shared/snack_bar_dialog.dart';
 import 'package:hungry/core/shared/total_price_and_cart_widget.dart';
 import 'package:hungry/core/utils/sized_box_extension.dart';
 import 'package:hungry/features/cart/data/models/add_to_cart_model.dart';
