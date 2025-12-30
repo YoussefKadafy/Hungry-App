@@ -3,7 +3,9 @@ import 'package:hungry/core/network/api_exceptions.dart';
 import 'package:hungry/core/network/dio_client.dart';
 
 class ApiServices {
-  DioClient dioClient = DioClient();
+  final DioClient dioClient;
+
+  ApiServices(this.dioClient);
 
   Future<Map<String, dynamic>> get(String endpoint) async {
     try {

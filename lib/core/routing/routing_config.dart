@@ -1,5 +1,8 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hungry/core/di/di_helper.dart';
 import 'package:hungry/core/routing/app_routes.dart';
+import 'package:hungry/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:hungry/features/auth/presentation/screens/login_screen.dart';
 import 'package:hungry/features/auth/presentation/screens/register_screen.dart';
 import 'package:hungry/features/cart/data/models/add_to_cart_model.dart';
@@ -21,13 +24,19 @@ class RoutingConfig {
       GoRoute(
         path: AppRoutes.login,
         name: AppRoutes.login,
-        builder: (context, state) => LoginScreen(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => locator<AuthCubit>(),
+          child: LoginScreen(),
+        ),
       ),
 
       GoRoute(
         path: AppRoutes.register,
         name: AppRoutes.register,
-        builder: (context, state) => RegisterScreen(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => locator<AuthCubit>(),
+          child: RegisterScreen(),
+        ),
       ),
       GoRoute(
         path: AppRoutes.rootScreen,

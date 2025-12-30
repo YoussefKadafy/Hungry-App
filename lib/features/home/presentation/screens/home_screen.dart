@@ -22,7 +22,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final List<CategoryModel> categories = [];
   HomeRepo repo = HomeRepo();
-  AuthRepo authRepo = .new();
   bool isLoading = true;
 
   bool isFetchingUserData = false;
@@ -45,20 +44,9 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {});
   }
 
-  Future<void> fetchUserData() async {
-    isFetchingUserData = true;
-    setState(() {});
-    final user = await authRepo.getProfile();
-    userName = user!.name;
-    image = user.image ?? '';
-    isFetchingUserData = false;
-    setState(() {});
-  }
-
   @override
   void initState() {
     super.initState();
-    fetchUserData();
     fetchCategories();
     fetchAllProducts();
   }

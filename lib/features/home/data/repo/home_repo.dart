@@ -1,10 +1,12 @@
+import 'package:dio/dio.dart';
 import 'package:hungry/core/network/api_services.dart';
+import 'package:hungry/core/network/dio_client.dart';
 import 'package:hungry/features/home/data/model/category_model.dart';
 import 'package:hungry/features/home/data/model/product_model.dart';
 import 'package:hungry/features/home/data/model/toppings_model.dart';
 
 class HomeRepo {
-  final ApiServices _apiServices = ApiServices();
+  final ApiServices _apiServices = ApiServices(DioClient(Dio()));
 
   /// fetch categories
   Future<List<CategoryModel>> fetchCategories() async {

@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -11,6 +12,8 @@ import 'package:hungry/core/consts/app_colors.dart';
 import 'package:hungry/core/routing/app_routes.dart';
 import 'package:hungry/core/shared/custom_snack_bar.dart';
 import 'package:hungry/features/auth/data/repo/auth_repo.dart';
+import 'package:hungry/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:hungry/features/auth/presentation/cubit/auth_states.dart';
 import 'package:hungry/features/auth/presentation/widgets/custom_auth_button.dart';
 import 'package:hungry/core/shared/custom_text.dart';
 import 'package:hungry/core/translations/locale_keys.g.dart';
@@ -31,36 +34,6 @@ class _LoginScreenState extends State<LoginScreen> {
   late final TextEditingController passwordController;
 
   bool _tapWasOnEditable = false;
-  bool isLoading = false;
-  AuthRepo authRepo = AuthRepo();
-  Future<void> login() async {
-    if (_formKey.currentState!.validate()) {
-      setState(() {
-        isLoading = true;
-      });
-      try {
-        final user = await authRepo.login(
-          email: emailController.text.trim(),
-          password: passwordController.text.trim(),
-        );
-        if (user != null) {
-          if (mounted) {
-            context.pushReplacement(AppRoutes.rootScreen);
-          }
-        }
-        setState(() {
-          isLoading = false;
-        });
-      } catch (e) {
-        if (mounted) {
-          setState(() {
-            isLoading = false;
-          });
-          showCustomSnackBar(context, e.toString());
-        }
-      }
-    }
-  }
 
   @override
   void initState() {
@@ -171,19 +144,41 @@ class _LoginScreenState extends State<LoginScreen> {
                                 passwordController: passwordController,
                               ),
                               24.height,
-                              isLoading
-                                  ? CupertinoActivityIndicator(
-                                      color: AppColors.white,
-                                    )
-                                  : Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: CustomAuthButton(
-                                        text: LocaleKeys.logIn.tr(),
-                                        borderColor: Colors.white,
-                                        textColor: AppColors.black,
-                                        onPressed: login,
-                                      ),
-                                    ),
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: BlocConsumer<AuthCubit, AuthState>(
+                                  listener: (context, state) {
+                                    if (state is AuthError) {
+                                      showCustomSnackBar(
+                                        context,
+                                        state.message,
+                                      );
+                                    }
+                                    if (state is AuthSuccess) {
+                                      context.pushReplacementNamed(
+                                        AppRoutes.rootScreen,
+                                      );
+                                    }
+                                  },
+                                  builder: (context, state) {
+                                    return CustomAuthButton(
+                                      text: state is AuthLoading
+                                          ? 'Logging in...'
+                                          : LocaleKeys.logIn.tr(),
+                                      borderColor: Colors.white,
+                                      textColor: AppColors.black,
+                                      onPressed: () {
+                                        if (_formKey.currentState!.validate()) {
+                                          context.read<AuthCubit>().login(
+                                            email: emailController.text,
+                                            password: passwordController.text,
+                                          );
+                                        }
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
                               Padding(
                                 padding: const EdgeInsets.all(16.0),
                                 child: CustomAuthButton(

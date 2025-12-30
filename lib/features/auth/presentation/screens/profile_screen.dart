@@ -34,11 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   late TextEditingController _emailController;
   late TextEditingController _nameController;
   late TextEditingController _addressController;
-  bool isLoading = false;
-  UserModel? model;
-  bool isLoggingOut = false;
-  bool isEditingProfile = false;
-  AuthRepo repo = AuthRepo();
+
   File? imageFile;
   final ImagePicker picker = ImagePicker();
 
@@ -52,134 +48,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
-  Future<void> editProfile() async {
-    try {
-      setState(() {
-        isEditingProfile = true;
-      });
-      final user = await repo.editUserData(
-        name: _nameController.text.trim(),
-        email: _emailController.text.trim(),
-        address: _addressController.text.trim(),
-
-        image: imageFile?.path,
-      );
-      if (user != null) {
-        model = user;
-        _emailController.text = model?.email ?? '';
-        _addressController.text = model?.address ?? '123 Main St, Anytown, USA';
-        _nameController.text = model?.name ?? '';
-      }
-      if (!mounted) return;
-      snackBarDialog(
-        context,
-        message: 'Profile updated successfully 🎉🥳',
-        type: AnimatedSnackBarType.success,
-        title: 'Success',
-      );
-      setState(() {
-        isEditingProfile = false;
-      });
-    } catch (e) {
-      String msg = 'Failed to update profile: ';
-      if (e is DioException) {
-        // Prefer message from response if available, otherwise generic
-        final resp = e.response?.data;
-        if (resp is Map && resp['message'] != null) {
-          msg = resp['message'].toString();
-        } else {
-          msg = 'Server error, please try again later.'; // user-friendly
-        }
-      } else {
-        msg = 'Unexpected error: ${e.toString()}';
-      }
-      if (mounted) {
-        setState(() {
-          isEditingProfile = false;
-        });
-        log(msg);
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(msg)));
-      }
-    }
-  }
-
-  Future<void> getProfileData() async {
-    try {
-      setState(() {
-        isLoading = true;
-      });
-
-      final user = await repo.getProfile();
-      if (user != null) {
-        model = user;
-        _emailController.text = model?.email ?? '';
-        _addressController.text = model?.address ?? '123 Main St, Anytown, USA';
-        _nameController.text = model?.name ?? '';
-      }
-      setState(() {
-        isLoading = false;
-      });
-    } catch (e) {
-      String msg;
-      if (e is DioException) {
-        final resp = e.response?.data;
-        if (resp is Map && resp['message'] != null) {
-          msg = resp['message'].toString();
-        } else {
-          msg = 'Server error, please try again later.';
-        }
-      } else {
-        msg = 'Unexpected error: ${e.toString()}';
-      }
-      if (mounted) {
-        setState(() {
-          isLoading = false;
-        });
-        log(msg);
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(msg)));
-      }
-    }
-  }
-
-  Future<void> logout() async {
-    try {
-      setState(() {
-        isLoggingOut = true;
-      });
-      await repo.logout();
-      if (mounted) {
-        setState(() {
-          isLoggingOut = false;
-        });
-        context.pushReplacementNamed(AppRoutes.login);
-      }
-    } catch (e) {
-      String msg;
-      if (e is DioException) {
-        final resp = e.response?.data;
-        if (resp is Map && resp['message'] != null) {
-          msg = resp['message'].toString();
-        } else {
-          msg = 'Server error, please try again later.';
-        }
-      } else {
-        msg = 'Unexpected error: ${e.toString()}';
-      }
-      if (mounted) {
-        setState(() {
-          isLoggingOut = false;
-        });
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(msg)));
-      }
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -187,8 +55,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _emailController = TextEditingController();
     _nameController = TextEditingController();
     _addressController = TextEditingController();
-
-    getProfileData();
   }
 
   @override
@@ -196,7 +62,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Skeletonizer(
-        enabled: isLoading,
+        enabled: true,
         child: Scaffold(
           backgroundColor: AppColors.primaryColor,
           bottomSheet: Container(
@@ -208,7 +74,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   GestureDetector(
-                    onTap: editProfile,
+                    onTap: () {},
                     child: Container(
                       padding: 16.paddingAll,
                       decoration: BoxDecoration(
@@ -227,26 +93,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: AppColors.primaryColor,
                           ),
                           10.width,
-                          isEditingProfile
-                              ? SizedBox(
-                                  height: 24.h,
-                                  width: 24.w,
-                                  child: Center(
-                                    child: CircularProgressIndicator(
-                                      color: AppColors.primaryColor,
-                                    ),
-                                  ),
-                                )
-                              : Icon(
-                                  Icons.edit_square,
-                                  color: AppColors.primaryColor,
-                                ),
+                          Icon(
+                            Icons.edit_square,
+                            color: AppColors.primaryColor,
+                          ),
                         ],
                       ),
                     ),
                   ),
                   GestureDetector(
-                    onTap: logout,
+                    onTap: () {},
                     child: Container(
                       padding: 16.paddingAll,
                       decoration: BoxDecoration(
@@ -262,20 +118,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: AppColors.white,
                           ),
                           10.width,
-                          isLoggingOut
-                              ? SizedBox(
-                                  height: 24.h,
-                                  width: 24.w,
-                                  child: Center(
-                                    child: CircularProgressIndicator(
-                                      color: AppColors.white,
-                                    ),
-                                  ),
-                                )
-                              : Icon(
-                                  Icons.logout_outlined,
-                                  color: AppColors.white,
-                                ),
+                          Icon(Icons.logout_outlined, color: AppColors.white),
                         ],
                       ),
                     ),
@@ -300,9 +143,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ],
           ),
           body: RefreshIndicator(
-            onRefresh: () async {
-              await getProfileData();
-            },
+            onRefresh: () async {},
             color: AppColors.lightPrimaryColor,
             backgroundColor: AppColors.white,
             child: SingleChildScrollView(
@@ -330,7 +171,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   fit: BoxFit.fill,
                                 )
                               : CachedNetworkImage(
-                                  imageUrl: model?.image ?? '',
+                                  imageUrl:
+                                      'model?.image ?? '
+                                      '',
                                   fit: BoxFit.fill,
                                   placeholder: (context, url) => Center(
                                     child: CircularProgressIndicator(
@@ -383,7 +226,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             116, // Account for bottom sheet (100) + extra padding (16)
                       ),
                       child: CustomPaymentCard(
-                        visaNumber: model?.visa,
+                        visaNumber: ' model?.visa',
                         selectedCard: 'visa',
                         onChanged: (value) {},
                       ),

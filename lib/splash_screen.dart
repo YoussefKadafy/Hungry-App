@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen>
     final token = await PrefHelper.getToken();
     if (token != null && token.isNotEmpty) {
       if (mounted) {
-        context.pushReplacementNamed(AppRoutes.rootScreen);
+        context.pushReplacementNamed(AppRoutes.login);
       }
     } else {
       if (mounted) {
@@ -108,11 +108,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     // Start animations sequence
     _startAnimations();
-
     // Navigate after delay
-    Future.delayed(const Duration(milliseconds: 3000), () {
-      trafficPoliceOfficer();
-    });
   }
 
   void _startAnimations() async {
@@ -121,6 +117,7 @@ class _SplashScreenState extends State<SplashScreen>
     _logoController.forward();
     await Future.delayed(const Duration(milliseconds: 600));
     _imageController.forward();
+    trafficPoliceOfficer();
   }
 
   @override
