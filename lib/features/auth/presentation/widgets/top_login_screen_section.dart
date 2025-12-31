@@ -1,7 +1,7 @@
 part of '../auth.dart';
 
-class TopScreenSection extends StatelessWidget {
-  const TopScreenSection({
+class TopLoginScreenSection extends StatelessWidget {
+  const TopLoginScreenSection({
     super.key,
     required this.topLogoSpace,
     required this.bottomLogoSpace,

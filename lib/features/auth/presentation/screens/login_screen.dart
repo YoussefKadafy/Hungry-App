@@ -79,120 +79,16 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              TopScreenSection(
+              TopLoginScreenSection(
                 topLogoSpace: topLogoSpace,
                 bottomLogoSpace: bottomLogoSpace,
               ),
-              Expanded(
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(24),
-                      topRight: Radius.circular(24),
-                    ),
-                    color: AppColors.primaryColor,
-                  ),
-                  child: SingleChildScrollView(
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(minHeight: availableSpace),
-                      child: IntrinsicHeight(
-                        child: Padding(
-                          padding: EdgeInsets.fromLTRB(0, 0, 0, bottomInset),
-                          child: Column(
-                            children: [
-                              32.height,
-                              LoginTextFieldsSection(
-                                emailController: emailController,
-                                passwordController: passwordController,
-                              ),
-                              24.height,
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: BlocConsumer<AuthCubit, AuthState>(
-                                  listener: (context, state) {
-                                    if (state is AuthError) {
-                                      showCustomSnackBar(
-                                        context,
-                                        state.message,
-                                      );
-                                    }
-                                    if (state is AuthSuccess) {
-                                      context.pushReplacementNamed(
-                                        AppRoutes.rootScreen,
-                                      );
-                                    }
-                                  },
-                                  builder: (context, state) {
-                                    return CustomAuthButton(
-                                      text: state is AuthLoading
-                                          ? 'Logging in...'
-                                          : LocaleKeys.logIn.tr(),
-                                      borderColor: Colors.white,
-                                      textColor: AppColors.black,
-                                      onPressed: () {
-                                        if (_formKey.currentState!.validate()) {
-                                          context.read<AuthCubit>().login(
-                                            email: emailController.text,
-                                            password: passwordController.text,
-                                          );
-                                        }
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: CustomAuthButton(
-                                  backgroundColor: Colors.transparent,
-                                  borderColor: Colors.white,
-                                  textColor: AppColors.white,
-                                  text: LocaleKeys.continueAsAGuest.tr(),
-                                  onPressed: () {
-                                    context.pushReplacementNamed(
-                                      AppRoutes.rootScreen,
-                                    );
-                                  },
-                                ),
-                              ),
-
-                              Spacer(),
-
-                              SafeArea(
-                                bottom: true,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    CustomText(
-                                      text: LocaleKeys.dontHaveAccount.tr(),
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                    ),
-                                    8.width,
-                                    GestureDetector(
-                                      onTap: () {
-                                        context.pushReplacementNamed(
-                                          AppRoutes.register,
-                                        );
-                                      },
-                                      child: CustomText(
-                                        text: LocaleKeys.signUp.tr(),
-                                        color: AppColors.secondaryColor,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+              BottomLoginScreenSection(
+                availableSpace: availableSpace,
+                bottomInset: bottomInset,
+                emailController: emailController,
+                passwordController: passwordController,
+                formKey: _formKey,
               ),
             ],
           ),

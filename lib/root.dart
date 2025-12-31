@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hungry/core/consts/app_colors.dart';
 import 'package:hungry/core/translations/locale_keys.g.dart';
 import 'package:hungry/core/utils/sized_box_extension.dart';
-import 'package:hungry/features/auth/presentation/screens/profile_screen.dart';
+import 'package:hungry/features/auth/presentation/auth.dart';
 import 'package:hungry/features/cart/presentation/screens/cart_screen.dart';
 import 'package:hungry/features/home/presentation/screens/home_screen.dart';
 import 'package:hungry/features/orderHistory/presentation/screens/order_history_screen.dart';

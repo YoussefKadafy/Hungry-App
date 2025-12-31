@@ -88,131 +88,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: topLogoSpace),
-              SvgPicture.asset(
-                AppAssets.logo,
-                colorFilter: ColorFilter.mode(
-                  AppColors.primaryColor,
-                  BlendMode.srcIn,
-                ),
+              TopRegisterScreenSection(
+                topLogoSpace: topLogoSpace,
+                bottomLogoSpace: bottomLogoSpace,
               ),
-              24.height,
-              Wrap(
-                children: [
-                  CustomText(
-                    fontSize: 18,
-                    text: LocaleKeys.welcomeToOurApp.tr(),
-                    color: AppColors.primaryColor,
-                    fontWeight: FontWeight.bold,
-                    textAlign: TextAlign.center,
-                  ),
-                  CustomText(text: ' , ', fontSize: 18),
-                  CustomText(
-                    fontSize: 18,
-                    text: LocaleKeys.signUp.tr(),
-                    color: AppColors.primaryColor,
-                    fontWeight: FontWeight.bold,
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-              SizedBox(height: topLogoSpace),
-              Expanded(
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(24),
-                      topRight: Radius.circular(24),
-                    ),
-                    color: AppColors.primaryColor,
-                  ),
-                  child: SingleChildScrollView(
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(minHeight: availableSpace),
-                      child: IntrinsicHeight(
-                        child: Padding(
-                          padding: EdgeInsets.fromLTRB(0, 0, 0, bottomInset),
-                          child: Column(
-                            children: [
-                              32.height,
-                              RegisterTextFieldsSection(
-                                confirmPasswordController:
-                                    confirmPasswordController,
-                                userNameController: userNameController,
-                                emailController: emailController,
-                                passwordController: passwordController,
-                              ),
-                              24.height,
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: BlocConsumer<AuthCubit, AuthState>(
-                                  listener: (context, state) {
-                                    if (state is AuthError) {
-                                      showCustomSnackBar(
-                                        context,
-                                        state.message,
-                                      );
-                                    }
-                                    if (state is AuthSuccess) {
-                                      context.pushReplacementNamed(
-                                        AppRoutes.rootScreen,
-                                      );
-                                    }
-                                  },
-                                  builder: (context, state) {
-                                    return CustomAuthButton(
-                                      textColor: AppColors.black,
-                                      borderColor: AppColors.white,
-                                      text: LocaleKeys.signUp.tr(),
-                                      onPressed: () {
-                                        if (_formKey.currentState!.validate()) {
-                                          context.read<AuthCubit>().register(
-                                            name: userNameController.text,
-                                            email: emailController.text,
-                                            password: passwordController.text,
-                                          );
-                                        }
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
-
-                              Spacer(),
-
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  CustomText(
-                                    text: LocaleKeys.alreadyHaveAccount.tr(),
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                  ),
-                                  8.width,
-                                  GestureDetector(
-                                    onTap: () {
-                                      context.pushReplacementNamed(
-                                        AppRoutes.login,
-                                      );
-                                    },
-                                    child: CustomText(
-                                      text: LocaleKeys.logIn.tr(),
-                                      color: AppColors.secondaryColor,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              24.height,
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+              BottomRegisterScreenSection(
+                availableSpace: availableSpace,
+                bottomInset: bottomInset,
+                confirmPasswordController: confirmPasswordController,
+                userNameController: userNameController,
+                emailController: emailController,
+                passwordController: passwordController,
+                formKey: _formKey,
               ),
             ],
           ),
