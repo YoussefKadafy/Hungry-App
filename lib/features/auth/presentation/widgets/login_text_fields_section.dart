@@ -1,9 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import 'package:hungry/core/consts/app_colors.dart';
-import 'package:hungry/core/shared/custom_text_field.dart';
-import 'package:hungry/core/translations/locale_keys.g.dart';
-import 'package:hungry/core/utils/sized_box_extension.dart';
+part of '../auth.dart';
 
 class LoginTextFieldsSection extends StatefulWidget {
   const LoginTextFieldsSection({

@@ -1,29 +1,4 @@
-// login_screen.dart
-import 'dart:developer';
-
-import 'package:dio/dio.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
-import 'package:hungry/core/consts/app_assets.dart';
-import 'package:hungry/core/consts/app_colors.dart';
-import 'package:hungry/core/network/api_error.dart';
-import 'package:hungry/core/network/api_exceptions.dart';
-import 'package:hungry/core/routing/app_routes.dart';
-import 'package:hungry/core/shared/custom_snack_bar.dart';
-import 'package:hungry/core/shared/custom_text.dart';
-import 'package:hungry/features/auth/data/repo/auth_repo.dart';
-import 'package:hungry/features/auth/presentation/cubit/auth_cubit.dart';
-import 'package:hungry/features/auth/presentation/cubit/auth_states.dart';
-import 'package:hungry/features/auth/presentation/widgets/custom_auth_button.dart';
-import 'package:hungry/core/translations/locale_keys.g.dart';
-import 'package:hungry/core/utils/sized_box_extension.dart';
-import 'package:hungry/features/auth/presentation/widgets/register_text_field_section.dart';
+part of '../auth.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});

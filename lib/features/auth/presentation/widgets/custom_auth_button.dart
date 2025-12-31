@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of '../auth.dart';
 
 class CustomAuthButton extends StatelessWidget {
   final String text;
