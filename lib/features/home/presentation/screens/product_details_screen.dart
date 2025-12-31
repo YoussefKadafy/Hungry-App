@@ -24,7 +24,6 @@ class ProductDetailsScreen extends StatefulWidget {
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
-  HomeRepo homeRepo = HomeRepo();
   List<ToppingsModel> toppingsList = [];
   List<ToppingsModel> sideOptionsList = [];
   double sliderValue = .1;
@@ -33,58 +32,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   bool isLoading = true;
   bool isAddedToCartLoading = false;
 
-  Future<void> fetchToppings() async {
-    final toppings = await homeRepo.fetchToppings();
-    toppingsList = toppings;
-    setState(() {
-      isLoading = false;
-    });
-  }
-
-  Future<void> fetchSideOptions() async {
-    final sideOptions = await homeRepo.fetchSideOptions();
-    sideOptionsList = sideOptions;
-    setState(() {
-      isLoading = false;
-    });
-  }
-
-  AddToCartRepo addToCartRepo = AddToCartRepo();
-
-  Future<void> addToCart(CartRequestModel request) async {
-    try {
-      setState(() {
-        isAddedToCartLoading = true;
-      });
-      final response = await addToCartRepo.addToCart(request);
-      if (response.code == 200) {
-        setState(() {
-          isAddedToCartLoading = false;
-        });
-        if (mounted) {
-          snackBarDialog(
-            context,
-            message: 'Added to cart successfully 🎉🥳',
-            type: AnimatedSnackBarType.success,
-            title: 'Success',
-          );
-        }
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() {
-          isAddedToCartLoading = false;
-        });
-        showCustomSnackBar(context, e.toString());
-      }
-    }
-  }
-
   @override
   void initState() {
     super.initState();
-    fetchToppings();
-    fetchSideOptions();
   }
 
   @override
@@ -124,7 +74,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               spicy: sliderValue,
             );
             final request = CartRequestModel(items: [cartItems]);
-            await addToCart(request);
           },
           price: '\$ ${product.price}',
           title: 'Total Price',

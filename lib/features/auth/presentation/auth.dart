@@ -37,3 +37,5 @@ part '../presentation/widgets/dont_have_account_widget.dart';
 part '../presentation/widgets/contineu_as_guest_widget.dart';
 part '../presentation/widgets/top_register_screen_section.dart';
 part '../presentation/widgets/bottom_register_screen_section.dart';
+part '../presentation/widgets/already_have_account_section.dart';
+part '../presentation/widgets/register_bloc_section.dart';

@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen>
     final token = await PrefHelper.getToken();
     if (token != null && token.isNotEmpty) {
       if (mounted) {
-        context.pushReplacementNamed(AppRoutes.login);
+        context.pushReplacementNamed(AppRoutes.rootScreen);
       }
     } else {
       if (mounted) {

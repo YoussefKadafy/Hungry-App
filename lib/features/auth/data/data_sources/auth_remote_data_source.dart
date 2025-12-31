@@ -1,6 +1,4 @@
-import 'package:dio/dio.dart';
 import 'package:hungry/core/network/api_error.dart';
-import 'package:hungry/core/network/api_exceptions.dart';
 import 'package:hungry/core/network/api_services.dart';
 import 'package:hungry/core/utils/pref_helper.dart';
 import 'package:hungry/features/auth/data/model/user_model.dart';

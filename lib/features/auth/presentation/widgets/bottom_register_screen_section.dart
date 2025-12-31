@@ -48,60 +48,16 @@ class BottomRegisterScreenSection extends StatelessWidget {
                       passwordController: passwordController,
                     ),
                     24.height,
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: BlocConsumer<AuthCubit, AuthState>(
-                        listener: (context, state) {
-                          if (state is AuthError) {
-                            showCustomSnackBar(context, state.message);
-                          }
-                          if (state is AuthSuccess) {
-                            context.pushReplacementNamed(AppRoutes.rootScreen);
-                          }
-                        },
-                        builder: (context, state) {
-                          return CustomAuthButton(
-                            textColor: AppColors.black,
-                            borderColor: AppColors.white,
-                            text: LocaleKeys.signUp.tr(),
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                context.read<AuthCubit>().register(
-                                  name: userNameController.text,
-                                  email: emailController.text,
-                                  password: passwordController.text,
-                                );
-                              }
-                            },
-                          );
-                        },
-                      ),
+                    RegisterBlocSection(
+                      formKey: _formKey,
+                      userNameController: userNameController,
+                      emailController: emailController,
+                      passwordController: passwordController,
                     ),
 
                     Spacer(),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustomText(
-                          text: LocaleKeys.alreadyHaveAccount.tr(),
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
-                        8.width,
-                        GestureDetector(
-                          onTap: () {
-                            context.pushReplacementNamed(AppRoutes.login);
-                          },
-                          child: CustomText(
-                            text: LocaleKeys.logIn.tr(),
-                            color: AppColors.secondaryColor,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
+                    AlreadyHaveAccountWidget(),
                     24.height,
                   ],
                 ),

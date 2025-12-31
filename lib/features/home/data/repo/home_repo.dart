@@ -1,39 +1,64 @@
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:hungry/core/network/api_services.dart';
-import 'package:hungry/core/network/dio_client.dart';
+import 'package:hungry/core/errors/failure.dart';
+import 'package:hungry/core/network/api_error.dart';
+import 'package:hungry/core/network/api_exceptions.dart';
 import 'package:hungry/features/home/data/model/category_model.dart';
 import 'package:hungry/features/home/data/model/product_model.dart';
 import 'package:hungry/features/home/data/model/toppings_model.dart';
+import 'package:hungry/features/home/data/remote_data_source/remote_data_source.dart';
+import 'package:hungry/features/home/domain/repo/base_home_repo.dart';
 
-class HomeRepo {
-  final ApiServices _apiServices = ApiServices(DioClient(Dio()));
+class HomeRepo extends BaseHomeRepo {
+  final BaseRemoteDataSource remoteDataSource;
 
-  /// fetch categories
-  Future<List<CategoryModel>> fetchCategories() async {
-    final response = await _apiServices.get('/categories');
-    final List data = response['data'];
-    return data.map((json) => CategoryModel.fromJson(json)).toList();
+  HomeRepo(this.remoteDataSource);
+
+  @override
+  Future<Either<Failure, List<ProductModel>>> fetchAllProducts() async {
+    try {
+      List<ProductModel> products = await remoteDataSource.fetchAllProducts();
+      return Right(products);
+    } on DioException catch (e) {
+      return Left(ApiExceptions.handleError(e));
+    } catch (e) {
+      return Left(ApiError(message: e.toString()));
+    }
   }
 
-  /// fetch products by category id
-  Future<List<ProductModel>> fetchAllProducts() async {
-    final response = await _apiServices.get('/products');
-    final List data = response['data'];
-    return data.map((json) => ProductModel.fromJson(json)).toList();
+  @override
+  Future<Either<Failure, List<CategoryModel>>> fetchCategories() async {
+    try {
+      List<CategoryModel> categories = await remoteDataSource.fetchCategories();
+      return Right(categories);
+    } on DioException catch (e) {
+      return Left(ApiExceptions.handleError(e));
+    } catch (e) {
+      return Left(ApiError(message: e.toString()));
+    }
   }
 
-  ///toppings
-
-  Future<List<ToppingsModel>> fetchToppings() async {
-    final response = await _apiServices.get('/toppings');
-    final List data = response['data'];
-    return data.map((json) => ToppingsModel.fromJson(json)).toList();
+  @override
+  Future<Either<Failure, List<ToppingsModel>>> fetchSideOptions() async {
+    try {
+      List<ToppingsModel> toppings = await remoteDataSource.fetchSideOptions();
+      return Right(toppings);
+    } on DioException catch (e) {
+      return Left(ApiExceptions.handleError(e));
+    } catch (e) {
+      return Left(ApiError(message: e.toString()));
+    }
   }
 
-  ///side Options
-  Future<List<ToppingsModel>> fetchSideOptions() async {
-    final response = await _apiServices.get('/side-options');
-    final List data = response['data'];
-    return data.map((json) => ToppingsModel.fromJson(json)).toList();
+  @override
+  Future<Either<Failure, List<ToppingsModel>>> fetchToppings() async {
+    try {
+      List<ToppingsModel> toppings = await remoteDataSource.fetchToppings();
+      return Right(toppings);
+    } on DioException catch (e) {
+      return Left(ApiExceptions.handleError(e));
+    } catch (e) {
+      return Left(ApiError(message: e.toString()));
+    }
   }
 }

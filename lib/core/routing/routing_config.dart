@@ -7,6 +7,8 @@ import 'package:hungry/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:hungry/features/cart/data/models/add_to_cart_model.dart';
 import 'package:hungry/features/check_out/presentation/screens/checkout_screen.dart';
 import 'package:hungry/features/home/data/model/product_model.dart';
+import 'package:hungry/features/home/presentation/cubit/category_cubit.dart';
+import 'package:hungry/features/home/presentation/cubit/get_products_cubit.dart';
 import 'package:hungry/features/home/presentation/screens/product_details_screen.dart';
 import 'package:hungry/root.dart';
 import 'package:hungry/splash_screen.dart';
@@ -41,7 +43,14 @@ class RoutingConfig {
         path: AppRoutes.rootScreen,
         name: AppRoutes.rootScreen,
         builder: (context, state) {
-          return const RootScreen();
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => locator<GetProductsCubit>()),
+              BlocProvider(create: (context) => locator<CategoryCubit>()),
+            ],
+
+            child: RootScreen(),
+          );
         },
       ),
       GoRoute(
