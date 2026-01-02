@@ -12,10 +12,13 @@ import 'package:hungry/features/auth/domain/repo/base_auth_repo.dart';
 import 'package:hungry/features/auth/domain/use_cases/auth_use_cases.dart';
 import 'package:hungry/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:hungry/features/home/data/remote_data_source/remote_data_source.dart';
+import 'package:hungry/features/home/data/repo/add_to_cart_repo.dart';
 import 'package:hungry/features/home/data/repo/home_repo.dart';
 import 'package:hungry/features/home/domain/repo/base_home_repo.dart';
+import 'package:hungry/features/home/domain/use_cases/add_to_cart_use_case.dart';
 import 'package:hungry/features/home/domain/use_cases/home_use_cases.dart';
 import 'package:hungry/features/home/domain/use_cases/toppings_and_options_use_case.dart';
+import 'package:hungry/features/home/presentation/cubit/add_to_cart_cubit.dart';
 import 'package:hungry/features/home/presentation/cubit/category_cubit.dart';
 import 'package:hungry/features/home/presentation/cubit/get_products_cubit.dart';
 import 'package:hungry/features/home/presentation/cubit/toppins_and_options_cubit.dart';
@@ -140,4 +143,107 @@ void setupLocator() {
   locator.registerFactory<CategoryCubit>(
     () => CategoryCubit(homeUseCases: locator<HomeUseCases>()),
   );
+
+  // ======================================================
+  // ======================= AddToCart =====================
+  // ======================================================
+
+  // =========================
+  // AddToCart - Data
+  // =========================
+  locator.registerLazySingleton<AddToCartRepo>(
+    () => AddToCartRepo(locator<BaseHomeRemoteDataSource>()),
+  );
+
+  // =========================
+  // AddToCart - Domain / UseCases
+  // =========================
+  locator.registerLazySingleton<AddToCartUseCase>(
+    () => AddToCartUseCase(locator<AddToCartRepo>()),
+  );
+  // =========================
+  //AddToCart- Presentation / Cubit
+  // =========================
+  locator.registerLazySingleton<AddToCartCubit>(
+    () => AddToCartCubit(locator<AddToCartUseCase>()),
+  );
+  // ======================================================
+  // =======================    =====================
+  // ======================================================
+
+  // =========================
+  //      - Data
+  // =========================
+
+  // =========================
+  //      - Domain / UseCases
+  // =========================
+
+  // =========================
+  //      - Presentation / Cubit
+  // =========================
+
+  // ======================================================
+  // =======================    =====================
+  // ======================================================
+
+  // =========================
+  //      - Data
+  // =========================
+
+  // =========================
+  //      - Domain / UseCases
+  // =========================
+
+  // =========================
+  //      - Presentation / Cubit
+  // =========================
+
+  // ======================================================
+  // =======================    =====================
+  // ======================================================
+
+  // =========================
+  //      - Data
+  // =========================
+
+  // =========================
+  //      - Domain / UseCases
+  // =========================
+
+  // =========================
+  //      - Presentation / Cubit
+  // =========================
+
+  // ======================================================
+  // =======================    =====================
+  // ======================================================
+
+  // =========================
+  //      - Data
+  // =========================
+
+  // =========================
+  //      - Domain / UseCases
+  // =========================
+
+  // =========================
+  //      - Presentation / Cubit
+  // =========================
+
+  // ======================================================
+  // =======================    =====================
+  // ======================================================
+
+  // =========================
+  //      - Data
+  // =========================
+
+  // =========================
+  //      - Domain / UseCases
+  // =========================
+
+  // =========================
+  //      - Presentation / Cubit
+  // =========================
 }

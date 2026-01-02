@@ -1,10 +1,16 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hungry/core/shared/custom_snack_bar.dart';
+import 'package:hungry/core/shared/snack_bar_dialog.dart';
+import 'package:hungry/core/utils/show_loading_dialog.dart';
 import 'package:hungry/core/utils/sized_box_extension.dart';
 import 'package:hungry/features/cart/data/models/add_to_cart_model.dart';
 import 'package:hungry/features/home/data/model/product_model.dart';
+import 'package:hungry/features/home/presentation/cubit/add_to_cart_cubit.dart';
+import 'package:hungry/features/home/presentation/cubit/add_to_cart_state.dart';
 import 'package:hungry/features/home/presentation/cubit/toppins_and_options_cubit.dart';
 import 'package:hungry/features/home/presentation/cubit/toppins_and_options_states.dart';
 import 'package:hungry/features/home/presentation/widgets/product_details_list_view_item.dart';
@@ -24,7 +30,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   List<int> selectedToppings = [];
   List<int> selectedSideOptions = [];
   bool isLoading = true;
-  bool isAddedToCartLoading = false;
 
   @override
   void initState() {
@@ -44,36 +49,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         surfaceTintColor: Colors.white,
       ),
       backgroundColor: Colors.white,
-      bottomSheet: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16.r),
-            topRight: Radius.circular(16.r),
-          ),
-          boxShadow: [
-            BoxShadow(color: Colors.grey, blurRadius: 20, offset: Offset(0, 9)),
-          ],
-        ),
-        height: 110.h + bottomInset,
-        padding: EdgeInsets.fromLTRB(16, 16, 16, 16 + bottomInset),
-        child: TotalPriceAndCartWidget(
-          iconData: isAddedToCartLoading
-              ? Center(child: CircularProgressIndicator(color: Colors.white))
-              : Icon(Icons.add_shopping_cart, color: Colors.white),
-          onPressed: () async {
-            final cartItems = CartItemModel(
-              productId: product.id,
-              quantity: 1,
-              toppings: selectedToppings,
-              sideOptions: selectedSideOptions,
-              spicy: sliderValue,
-            );
-            final request = CartRequestModel(items: [cartItems]);
-          },
-          price: '\$ ${product.price}',
-          title: 'Total Price',
-        ),
+      bottomSheet: PriceAndAddingToCart(
+        bottomInset: bottomInset,
+        product: product,
+        selectedToppings: selectedToppings,
+        selectedSideOptions: selectedSideOptions,
+        sliderValue: sliderValue,
       ),
 
       body: SingleChildScrollView(
@@ -201,6 +182,78 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
             164.height,
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class PriceAndAddingToCart extends StatelessWidget {
+  const PriceAndAddingToCart({
+    super.key,
+    required this.bottomInset,
+    required this.product,
+    required this.selectedToppings,
+    required this.selectedSideOptions,
+    required this.sliderValue,
+  });
+
+  final double bottomInset;
+  final ProductModel product;
+  final List<int> selectedToppings;
+  final List<int> selectedSideOptions;
+  final double sliderValue;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16.r),
+          topRight: Radius.circular(16.r),
+        ),
+        boxShadow: [
+          BoxShadow(color: Colors.grey, blurRadius: 20, offset: Offset(0, 9)),
+        ],
+      ),
+      height: 110.h + bottomInset,
+      padding: EdgeInsets.fromLTRB(16, 16, 16, 16 + bottomInset),
+      child: BlocListener<AddToCartCubit, AddToCartState>(
+        listener: (context, state) {
+          if (state is AddToCartError) {
+            snackBarDialog(
+              context,
+              message: state.message,
+              type: AnimatedSnackBarType.error,
+            );
+          }
+          if (state is AddToCartSuccess) {
+            snackBarDialog(
+              context,
+              message: state.addToCartResponseModel.message,
+              type: AnimatedSnackBarType.success,
+            );
+          }
+          if (state is AddToCartLoading) {
+            ShowLoadingDialog;
+          }
+        },
+        child: TotalPriceAndCartWidget(
+          iconData: Icon(Icons.add_shopping_cart, color: Colors.white),
+          onPressed: () async {
+            final cartItems = CartItemModel(
+              productId: product.id,
+              quantity: 1,
+              toppings: selectedToppings,
+              sideOptions: selectedSideOptions,
+              spicy: sliderValue,
+            );
+            final request = CartRequestModel(items: [cartItems]);
+            context.read<AddToCartCubit>().addToCart(request);
+          },
+          price: '\$ ${product.price}',
+          title: 'Total Price',
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:hungry/core/network/api_services.dart';
+import 'package:hungry/features/cart/data/models/add_to_cart_model.dart';
 import 'package:hungry/features/home/data/model/category_model.dart';
 import 'package:hungry/features/home/data/model/product_model.dart';
 import 'package:hungry/features/home/data/model/toppings_model.dart';
@@ -8,6 +9,7 @@ abstract class BaseHomeRemoteDataSource {
   Future<List<CategoryModel>> fetchCategories();
   Future<List<ToppingsModel>> fetchToppings();
   Future<List<ToppingsModel>> fetchSideOptions();
+  Future<AddToCartResponseModel> addToCart(CartRequestModel request);
 }
 
 class RemoteHomeDataSource extends BaseHomeRemoteDataSource {
@@ -40,5 +42,11 @@ class RemoteHomeDataSource extends BaseHomeRemoteDataSource {
     final response = await apiServices.get('/toppings');
     final List data = response['data'];
     return data.map((json) => ToppingsModel.fromJson(json)).toList();
+  }
+
+  @override
+  Future<AddToCartResponseModel> addToCart(CartRequestModel request) async {
+    final response = await apiServices.post('/cart/add', request.toJson());
+    return AddToCartResponseModel.fromJson(response);
   }
 }

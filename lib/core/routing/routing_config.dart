@@ -7,6 +7,7 @@ import 'package:hungry/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:hungry/features/cart/data/models/add_to_cart_model.dart';
 import 'package:hungry/features/check_out/presentation/screens/checkout_screen.dart';
 import 'package:hungry/features/home/data/model/product_model.dart';
+import 'package:hungry/features/home/presentation/cubit/add_to_cart_cubit.dart';
 import 'package:hungry/features/home/presentation/cubit/category_cubit.dart';
 import 'package:hungry/features/home/presentation/cubit/get_products_cubit.dart';
 import 'package:hungry/features/home/presentation/cubit/toppins_and_options_cubit.dart';
@@ -59,8 +60,13 @@ class RoutingConfig {
         name: AppRoutes.productDetails,
         builder: (context, state) {
           final productDetails = state.extra as ProductModel;
-          return BlocProvider(
-            create: (context) => locator<ToppinsAndOptionsCubit>(),
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => locator<ToppinsAndOptionsCubit>(),
+              ),
+              BlocProvider(create: (context) => locator<AddToCartCubit>()),
+            ],
             child: ProductDetailsScreen(product: productDetails),
           );
         },
