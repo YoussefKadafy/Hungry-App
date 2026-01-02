@@ -1,16 +1,12 @@
-import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hungry/core/shared/snack_bar_dialog.dart';
-import 'package:hungry/core/shared/custom_snack_bar.dart';
-import 'package:hungry/core/utils/cart_notifier.dart';
 import 'package:hungry/core/utils/sized_box_extension.dart';
 import 'package:hungry/features/cart/data/models/add_to_cart_model.dart';
-import 'package:hungry/features/cart/data/repos/add_to_cart_repo.dart';
 import 'package:hungry/features/home/data/model/product_model.dart';
-import 'package:hungry/features/home/data/model/toppings_model.dart';
-import 'package:hungry/features/home/data/repo/home_repo.dart';
+import 'package:hungry/features/home/presentation/cubit/toppins_and_options_cubit.dart';
+import 'package:hungry/features/home/presentation/cubit/toppins_and_options_states.dart';
 import 'package:hungry/features/home/presentation/widgets/product_details_list_view_item.dart';
 import 'package:hungry/features/home/presentation/widgets/product_spice_selector_section.dart';
 import 'package:hungry/core/shared/total_price_and_cart_widget.dart';
@@ -24,8 +20,6 @@ class ProductDetailsScreen extends StatefulWidget {
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
-  List<ToppingsModel> toppingsList = [];
-  List<ToppingsModel> sideOptionsList = [];
   double sliderValue = .1;
   List<int> selectedToppings = [];
   List<int> selectedSideOptions = [];
@@ -35,6 +29,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   void initState() {
     super.initState();
+    context.read<ToppinsAndOptionsCubit>().fetchToppings();
+    context.read<ToppinsAndOptionsCubit>().fetchSideOptions();
   }
 
   @override
@@ -104,16 +100,23 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             ),
 
             // ListView.builder للـ toppings
-            isLoading
-                ? CircularProgressIndicator()
-                : SizedBox(
+            BlocBuilder<ToppinsAndOptionsCubit, ToppingsAndOptionsStates>(
+              builder: (context, state) {
+                if (state is ToppingsAndOptionsError) {
+                  return Center(child: Text(state.message));
+                }
+                if (state is ToppingsAndOptionsSuccess) {
+                  final toppings = context
+                      .read<ToppinsAndOptionsCubit>()
+                      .toppings;
+                  return SizedBox(
                     height: 200.h,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: toppingsList.length,
+                      itemCount: toppings.length,
                       padding: EdgeInsetsDirectional.only(start: 16.w),
                       itemBuilder: (context, index) {
-                        final toppingItem = toppingsList[index];
+                        final toppingItem = toppings[index];
                         return Align(
                           alignment:
                               Alignment.bottomCenter, // هيخلي الـ item يلزق تحت
@@ -135,7 +138,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         );
                       },
                     ),
-                  ),
+                  );
+                }
+                return Center(child: CircularProgressIndicator());
+              },
+            ),
             52.height,
             Padding(
               padding: EdgeInsetsDirectional.only(start: 16.w),
@@ -145,17 +152,24 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
             ),
 
-            isLoading
-                ? CircularProgressIndicator()
-                : SizedBox(
+            BlocBuilder<ToppinsAndOptionsCubit, ToppingsAndOptionsStates>(
+              builder: (context, state) {
+                if (state is ToppingsAndOptionsError) {
+                  return Center(child: Text(state.message));
+                }
+                if (state is ToppingsAndOptionsSuccess) {
+                  final options = context
+                      .read<ToppinsAndOptionsCubit>()
+                      .options;
+                  return SizedBox(
                     height: 200.h,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: sideOptionsList.length,
+                      itemCount: options.length,
                       padding: EdgeInsetsDirectional.only(start: 16.w),
                       clipBehavior: Clip.none,
                       itemBuilder: (context, index) {
-                        final sideOptionItem = sideOptionsList[index];
+                        final sideOptionItem = options[index];
                         return Align(
                           alignment:
                               Alignment.bottomCenter, // هيخلي الـ item يلزق تحت
@@ -179,7 +193,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         );
                       },
                     ),
-                  ),
+                  );
+                }
+                return Center(child: CircularProgressIndicator());
+              },
+            ),
 
             164.height,
           ],

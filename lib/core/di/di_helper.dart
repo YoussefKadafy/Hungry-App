@@ -15,8 +15,10 @@ import 'package:hungry/features/home/data/remote_data_source/remote_data_source.
 import 'package:hungry/features/home/data/repo/home_repo.dart';
 import 'package:hungry/features/home/domain/repo/base_home_repo.dart';
 import 'package:hungry/features/home/domain/use_cases/home_use_cases.dart';
+import 'package:hungry/features/home/domain/use_cases/toppings_and_options_use_case.dart';
 import 'package:hungry/features/home/presentation/cubit/category_cubit.dart';
 import 'package:hungry/features/home/presentation/cubit/get_products_cubit.dart';
+import 'package:hungry/features/home/presentation/cubit/toppins_and_options_cubit.dart';
 
 final GetIt locator = GetIt.instance;
 
@@ -88,12 +90,12 @@ void setupLocator() {
   // =========================
   // Home - Data
   // =========================
-  locator.registerLazySingleton<BaseRemoteDataSource>(
-    () => RemoteDataSource(locator<ApiServices>()),
+  locator.registerLazySingleton<BaseHomeRemoteDataSource>(
+    () => RemoteHomeDataSource(locator<ApiServices>()),
   );
 
   locator.registerLazySingleton<BaseHomeRepo>(
-    () => HomeRepo(locator<BaseRemoteDataSource>()),
+    () => HomeRepo(locator<BaseHomeRemoteDataSource>()),
   );
   // =========================
   // Home - Domain / UseCases
@@ -108,20 +110,25 @@ void setupLocator() {
     () => GetProductsCubit(homeUseCases: locator<HomeUseCases>()),
   );
   // ======================================================
-  // ======================= PRODUCTS =====================
+  // ======================= TOOPINGS&OPTIONS =====================
   // ======================================================
 
   // =========================
-  // Products - Data
+  // TOOPINGS&OPTIONS - Data
   // =========================
 
   // =========================
-  // Products - Domain / UseCases
+  // TOOPINGS&OPTIONS - Domain / UseCases
   // =========================
-
+  locator.registerLazySingleton<ToppingsAndOptionsUseCase>(
+    () => ToppingsAndOptionsUseCase(locator<BaseHomeRepo>()),
+  );
   // =========================
   // Products - Presentation / Cubit
   // =========================
+  locator.registerFactory(
+    () => ToppinsAndOptionsCubit(locator<ToppingsAndOptionsUseCase>()),
+  );
 
   // ======================================================
   // ====================== CATEGORIES ====================

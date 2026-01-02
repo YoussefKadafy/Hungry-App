@@ -9,6 +9,7 @@ import 'package:hungry/features/check_out/presentation/screens/checkout_screen.d
 import 'package:hungry/features/home/data/model/product_model.dart';
 import 'package:hungry/features/home/presentation/cubit/category_cubit.dart';
 import 'package:hungry/features/home/presentation/cubit/get_products_cubit.dart';
+import 'package:hungry/features/home/presentation/cubit/toppins_and_options_cubit.dart';
 import 'package:hungry/features/home/presentation/screens/product_details_screen.dart';
 import 'package:hungry/root.dart';
 import 'package:hungry/splash_screen.dart';
@@ -58,7 +59,10 @@ class RoutingConfig {
         name: AppRoutes.productDetails,
         builder: (context, state) {
           final productDetails = state.extra as ProductModel;
-          return ProductDetailsScreen(product: productDetails);
+          return BlocProvider(
+            create: (context) => locator<ToppinsAndOptionsCubit>(),
+            child: ProductDetailsScreen(product: productDetails),
+          );
         },
       ),
       GoRoute(

@@ -10,7 +10,7 @@ import 'package:hungry/features/home/data/remote_data_source/remote_data_source.
 import 'package:hungry/features/home/domain/repo/base_home_repo.dart';
 
 class HomeRepo extends BaseHomeRepo {
-  final BaseRemoteDataSource remoteDataSource;
+  final BaseHomeRemoteDataSource remoteDataSource;
 
   HomeRepo(this.remoteDataSource);
 
