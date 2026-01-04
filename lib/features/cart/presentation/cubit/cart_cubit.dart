@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hungry/core/utils/show_Dialog.dart';
 import 'package:hungry/features/cart/data/models/cart_model/cart_model.dart';
 import 'package:hungry/features/cart/domain/use_cases/cart_use_case.dart';
 import 'package:hungry/features/cart/presentation/cubit/cart_state.dart';
@@ -9,7 +8,7 @@ class CartCubit extends Cubit<CartState> {
   final CartUseCase cartUseCase;
   String _message = '';
   bool _reloaded = false;
-  Map<int, int> _localQuantities = {};
+  final Map<int, int> _localQuantities = {};
 
   bool get reloaded => _reloaded;
   String get message => _message;
@@ -34,14 +33,6 @@ class CartCubit extends Cubit<CartState> {
       await getCart();
       _reloaded = true;
     });
-  }
-
-  void _intializeLocalQuantities(CartModel cartModel) {
-    _localQuantities.clear();
-    final items = cartModel.data?.items ?? [];
-    for (var item in items) {
-      _localQuantities[item.itemId ?? 0] = item.quantity ?? 1;
-    }
   }
 
   void increaseQuantity(int id) {

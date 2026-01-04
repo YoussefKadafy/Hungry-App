@@ -12,6 +12,7 @@ class SideOptionsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: EdgeInsetsDirectional.only(start: 16.w),

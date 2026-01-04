@@ -49,7 +49,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           children: [
             ProductSpiceSelectorSection(
               onChanged: (value) {
-                context.watch<AddToCartCubit>().spiceLevelChanged(value);
+                context.read<AddToCartCubit>().spiceLevelChanged(value);
               },
               product: product,
               sliderValue: spiceValue,
