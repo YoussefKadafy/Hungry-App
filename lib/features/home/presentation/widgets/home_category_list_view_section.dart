@@ -4,10 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hungry/core/shared/custom_text.dart';
 import 'package:hungry/features/home/presentation/cubit/category_cubit.dart';
 import 'package:hungry/features/home/presentation/cubit/category_state.dart';
+import 'package:hungry/features/home/presentation/widgets/Loading_category.dart';
 import 'package:hungry/features/home/presentation/widgets/custom_list_view.dart';
 
-class HomeListViewSection extends StatelessWidget {
-  const HomeListViewSection({super.key});
+class HomeCategoryListViewSection extends StatelessWidget {
+  const HomeCategoryListViewSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,32 +37,8 @@ class HomeListViewSection extends StatelessWidget {
               },
             );
           }
-          return ListView.builder(
-            physics: BouncingScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsetsDirectional.only(end: 8.0),
-                child: _CategorySkeleton(),
-              );
-            },
-          );
+          return LoadingCategory();
         },
-      ),
-    );
-  }
-}
-
-class _CategorySkeleton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 80.w,
-      height: 36.h,
-      decoration: BoxDecoration(
-        color: Colors.grey.shade300,
-        borderRadius: BorderRadius.circular(20),
       ),
     );
   }
