@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hungry/core/consts/app_colors.dart';
 import 'package:hungry/core/shared/custom_text.dart';
 import 'package:hungry/core/utils/sized_box_extension.dart';
 import 'package:hungry/features/home/data/model/product_model.dart';

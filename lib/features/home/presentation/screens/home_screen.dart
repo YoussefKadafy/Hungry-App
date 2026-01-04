@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:hungry/core/routing/app_routes.dart';
-import 'package:hungry/core/shared/custom_text.dart';
 import 'package:hungry/core/utils/sized_box_extension.dart';
-import 'package:hungry/features/home/presentation/cubit/category_cubit.dart';
-import 'package:hungry/features/home/presentation/cubit/get_products_cubit.dart';
-import 'package:hungry/features/home/presentation/cubit/praducts_state.dart';
-import 'package:hungry/features/home/presentation/widgets/grid_view_item.dart';
 import 'package:hungry/features/home/presentation/widgets/heading_widget.dart';
 import 'package:hungry/features/home/presentation/widgets/home_data.dart';
-import 'package:hungry/features/home/presentation/widgets/home_list_view_section.dart';
+import 'package:hungry/features/home/presentation/widgets/home_category_list_view_section.dart';
 import 'package:hungry/features/home/presentation/widgets/search_field_widget.dart';
 
 class HomeScreen extends StatefulWidget {
