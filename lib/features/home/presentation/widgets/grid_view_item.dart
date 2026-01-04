@@ -74,9 +74,9 @@ class GridViewItem extends StatelessWidget {
   }
 }
 
-class GridShimmerItem extends StatelessWidget {
-  const GridShimmerItem({super.key});
-
+class ShimmerItem extends StatelessWidget {
+  const ShimmerItem({super.key, this.height = 120});
+  final double height;
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
@@ -95,7 +95,7 @@ class GridShimmerItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: 120.h,
+                height: height.h,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.grey,

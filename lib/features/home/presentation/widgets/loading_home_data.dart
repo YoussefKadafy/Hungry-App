@@ -14,7 +14,7 @@ class LoadingHomeData extends StatelessWidget {
         childAspectRatio: 0.68,
       ),
       itemCount: 6,
-      itemBuilder: (context, index) => GridShimmerItem(),
+      itemBuilder: (context, index) => ShimmerItem(),
     );
   }
 }

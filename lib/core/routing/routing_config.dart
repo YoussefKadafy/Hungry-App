@@ -62,9 +62,7 @@ class RoutingConfig {
           final productDetails = state.extra as ProductModel;
           return MultiBlocProvider(
             providers: [
-              BlocProvider(
-                create: (context) => locator<ToppinsAndOptionsCubit>(),
-              ),
+              BlocProvider.value(value: locator<ToppinsAndOptionsCubit>()),
               BlocProvider(create: (context) => locator<AddToCartCubit>()),
             ],
             child: ProductDetailsScreen(product: productDetails),
