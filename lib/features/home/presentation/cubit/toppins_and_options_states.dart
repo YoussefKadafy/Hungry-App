@@ -1,5 +1,3 @@
-import 'package:hungry/features/home/data/model/toppings_model.dart';
-
 abstract class ToppingsAndOptionsStates {}
 
 class ToppingsAndOptionsInitial extends ToppingsAndOptionsStates {}

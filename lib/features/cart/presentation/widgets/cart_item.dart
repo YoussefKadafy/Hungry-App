@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hungry/core/consts/app_colors.dart';
 import 'package:hungry/core/shared/custom_button.dart';
 import 'package:hungry/core/shared/custom_text.dart';
 import 'package:hungry/core/utils/sized_box_extension.dart';
 import 'package:hungry/features/cart/data/models/cart_model/item.dart';
+import 'package:hungry/features/cart/presentation/cubit/cart_cubit.dart';
 
 class CartItem extends StatefulWidget {
   const CartItem({
@@ -135,7 +137,10 @@ class _CartItemState extends State<CartItem>
                             onPressed: widget.onDecrease,
                           ),
                           CustomText(
-                            text: widget.item.quantity.toString(),
+                            text: context
+                                .read<CartCubit>()
+                                .getQuantity(widget.item.itemId!.toInt())
+                                .toString(),
                             fontSize: 16,
                           ),
                           _QtyButton(

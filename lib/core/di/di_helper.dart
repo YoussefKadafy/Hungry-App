@@ -11,6 +11,11 @@ import 'package:hungry/features/auth/data/repo/auth_repo.dart';
 import 'package:hungry/features/auth/domain/repo/base_auth_repo.dart';
 import 'package:hungry/features/auth/domain/use_cases/auth_use_cases.dart';
 import 'package:hungry/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:hungry/features/cart/data/data_source/cart_data_source.dart';
+import 'package:hungry/features/cart/data/repos/cart_repo.dart';
+import 'package:hungry/features/cart/domain/repo/base_cart_repo.dart';
+import 'package:hungry/features/cart/domain/use_cases/cart_use_case.dart';
+import 'package:hungry/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:hungry/features/home/data/remote_data_source/remote_data_source.dart';
 import 'package:hungry/features/home/data/repo/add_to_cart_repo.dart';
 import 'package:hungry/features/home/data/repo/home_repo.dart';
@@ -168,21 +173,30 @@ void setupLocator() {
     () => AddToCartCubit(locator<AddToCartUseCase>()),
   );
   // ======================================================
-  // =======================    =====================
+  // =======================  CART SCREEN   =====================
   // ======================================================
 
   // =========================
-  //      - Data
+  //   CART   - Data
   // =========================
-
+  locator.registerLazySingleton<BaseRemouteCartDataSource>(
+    () => RemouteCartDataSource(locator<ApiServices>()),
+  );
+  locator.registerLazySingleton<BaseCartRepo>(
+    () => CartRepo(locator<BaseRemouteCartDataSource>()),
+  );
   // =========================
-  //      - Domain / UseCases
+  //   CART   - Domain / UseCases
   // =========================
-
+  locator.registerLazySingleton<CartUseCase>(
+    () => CartUseCase(locator<BaseCartRepo>()),
+  );
   // =========================
-  //      - Presentation / Cubit
+  //  CART    - Presentation / Cubit
   // =========================
-
+  locator.registerLazySingleton<CartCubit>(
+    () => CartCubit(locator<CartUseCase>()),
+  );
   // ======================================================
   // =======================    =====================
   // ======================================================

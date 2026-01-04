@@ -32,33 +32,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   double get orderPrice => double.tryParse(widget.totalPrice) ?? 0.0;
   double get totalPrice => OrderCalculator.calculateTotal(orderPrice);
   bool isOrderSaved = false;
-  CartRepo cartRepo = CartRepo();
-
-  Future<void> saveOrder(CartRequestModel request) async {
-    try {
-      isOrderSaved = true;
-      setState(() {});
-      final response = await cartRepo.saveOrder(request);
-
-      if (!mounted) return;
-      snackBarDialog(
-        context,
-        message: 'Order saved to history\n$response 🎉🥳',
-        type: AnimatedSnackBarType.success,
-        title: 'Success',
-      );
-
-      isOrderSaved = false;
-      setState(() {});
-    } catch (e) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(e.toString())));
-      isOrderSaved = false;
-      setState(() {});
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +44,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               showSuccessDialog(
                 context,
                 confirmPressed: () {
-                  saveOrder(widget.cartRequestModel);
                   Navigator.pop(context);
                 },
                 title: 'Do you want to save this order at order history?',

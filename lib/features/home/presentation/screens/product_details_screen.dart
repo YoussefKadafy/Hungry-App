@@ -228,15 +228,16 @@ class PriceAndAddingToCart extends StatelessWidget {
               type: AnimatedSnackBarType.error,
             );
           }
+          if (state is AddToCartLoading) {
+            showLoadingDialog(context);
+          }
           if (state is AddToCartSuccess) {
+            Navigator.pop(context);
             snackBarDialog(
               context,
               message: state.addToCartResponseModel.message,
               type: AnimatedSnackBarType.success,
             );
-          }
-          if (state is AddToCartLoading) {
-            ShowLoadingDialog;
           }
         },
         child: TotalPriceAndCartWidget(

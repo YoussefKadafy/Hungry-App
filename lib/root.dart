@@ -1,10 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hungry/core/consts/app_colors.dart';
+import 'package:hungry/core/di/di_helper.dart';
 import 'package:hungry/core/translations/locale_keys.g.dart';
 import 'package:hungry/core/utils/sized_box_extension.dart';
 import 'package:hungry/features/auth/presentation/auth.dart';
+import 'package:hungry/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:hungry/features/cart/presentation/screens/cart_screen.dart';
+import 'package:hungry/features/home/presentation/cubit/category_cubit.dart';
+import 'package:hungry/features/home/presentation/cubit/get_products_cubit.dart';
 import 'package:hungry/features/home/presentation/screens/home_screen.dart';
 import 'package:hungry/features/orderHistory/presentation/screens/order_history_screen.dart';
 
@@ -23,10 +28,16 @@ class _RootScreenState extends State<RootScreen> {
   @override
   void initState() {
     super.initState();
+
+    BlocProvider.of<GetProductsCubit>(context).getProducts();
+    BlocProvider.of<CategoryCubit>(context).getCategories();
     screens = [
       HomeScreen(),
 
-      const CartScreen(),
+      BlocProvider(
+        create: (context) => locator<CartCubit>(),
+        child: CartScreen(),
+      ),
       const OrderHistoryScreen(),
       const ProfileScreen(),
     ];
@@ -42,7 +53,15 @@ class _RootScreenState extends State<RootScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(controller: _controller, children: screens),
+      body: PageView(
+        controller: _controller,
+        children: screens,
+        onPageChanged: (value) {
+          setState(() {
+            currentIndex = value;
+          });
+        },
+      ),
       bottomNavigationBar: Container(
         padding: 8.paddingAll,
         decoration: BoxDecoration(
