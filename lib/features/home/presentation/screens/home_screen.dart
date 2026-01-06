@@ -31,12 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
               physics: const BouncingScrollPhysics(),
               slivers: [
                 SliverToBoxAdapter(child: 17.height),
-                SliverToBoxAdapter(
-                  child: HeadingWidget(
-                    userName: 'userName' ?? '',
-                    image: 'image' ?? '',
-                  ),
-                ),
+                SliverToBoxAdapter(child: HeadingWidget()),
                 SliverToBoxAdapter(child: 17.height),
 
                 SliverToBoxAdapter(

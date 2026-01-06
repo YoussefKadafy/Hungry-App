@@ -14,7 +14,6 @@ import 'package:hungry/features/home/presentation/cubit/get_products_cubit.dart'
 import 'package:hungry/features/home/presentation/screens/home_screen.dart';
 import 'package:hungry/features/orderHistory/presentation/cubit/order_history_cubit.dart';
 import 'package:hungry/features/orderHistory/presentation/screens/order_history_screen.dart';
-import 'package:hungry/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:hungry/features/profile/presentation/cubit/update_profile_cubit.dart';
 
 class RootScreen extends StatefulWidget {
@@ -48,7 +47,6 @@ class _RootScreenState extends State<RootScreen> {
       ),
       MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => locator<ProfileCubit>()),
           BlocProvider(create: (context) => locator<UpdateProfileCubit>()),
           BlocProvider(create: (context) => locator<LogoutCubit>()),
         ],

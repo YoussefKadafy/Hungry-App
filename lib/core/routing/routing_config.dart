@@ -13,6 +13,7 @@ import 'package:hungry/features/home/presentation/cubit/category_cubit.dart';
 import 'package:hungry/features/home/presentation/cubit/get_products_cubit.dart';
 import 'package:hungry/features/home/presentation/cubit/toppins_and_options_cubit.dart';
 import 'package:hungry/features/home/presentation/screens/product_details_screen.dart';
+import 'package:hungry/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:hungry/root.dart';
 import 'package:hungry/splash_screen.dart';
 
@@ -48,6 +49,8 @@ class RoutingConfig {
         builder: (context, state) {
           return MultiBlocProvider(
             providers: [
+              BlocProvider(create: (context) => locator<ProfileCubit>()),
+
               BlocProvider(create: (context) => locator<GetProductsCubit>()),
               BlocProvider(create: (context) => locator<CategoryCubit>()),
             ],
