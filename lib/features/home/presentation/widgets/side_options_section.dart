@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hungry/features/home/presentation/cubit/add_to_cart_cubit.dart';
 import 'package:hungry/features/home/presentation/cubit/toppins_and_options_cubit.dart';
 import 'package:hungry/features/home/presentation/cubit/toppins_and_options_states.dart';
-import 'package:hungry/features/home/presentation/widgets/grid_view_item.dart';
 import 'package:hungry/features/home/presentation/widgets/loading_toppings_and_options.dart';
 import 'package:hungry/features/home/presentation/widgets/product_details_list_view_item.dart';
 

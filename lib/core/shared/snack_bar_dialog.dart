@@ -5,7 +5,6 @@ void snackBarDialog(
   BuildContext context, {
   String? message,
   AnimatedSnackBarType? type,
-  String? title,
 }) {
   return AnimatedSnackBar.material(
     message ?? 'This a snackbar with info type',

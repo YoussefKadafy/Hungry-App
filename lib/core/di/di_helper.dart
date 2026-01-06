@@ -16,6 +16,7 @@ import 'package:hungry/features/cart/data/repos/cart_repo.dart';
 import 'package:hungry/features/cart/domain/repo/base_cart_repo.dart';
 import 'package:hungry/features/cart/domain/use_cases/cart_use_case.dart';
 import 'package:hungry/features/cart/presentation/cubit/cart_cubit.dart';
+import 'package:hungry/features/cart/presentation/cubit/save_orders_cubit.dart';
 import 'package:hungry/features/home/data/remote_data_source/remote_data_source.dart';
 import 'package:hungry/features/home/data/repo/add_to_cart_repo.dart';
 import 'package:hungry/features/home/data/repo/home_repo.dart';
@@ -27,6 +28,11 @@ import 'package:hungry/features/home/presentation/cubit/add_to_cart_cubit.dart';
 import 'package:hungry/features/home/presentation/cubit/category_cubit.dart';
 import 'package:hungry/features/home/presentation/cubit/get_products_cubit.dart';
 import 'package:hungry/features/home/presentation/cubit/toppins_and_options_cubit.dart';
+import 'package:hungry/features/orderHistory/data/data_source/orders_history_data_source.dart';
+import 'package:hungry/features/orderHistory/data/repo/order_history_repo.dart';
+import 'package:hungry/features/orderHistory/domain/repo/base_order_history_repo.dart';
+import 'package:hungry/features/orderHistory/domain/useCases/order_history_use_cases.dart';
+import 'package:hungry/features/orderHistory/presentation/cubit/order_history_cubit.dart';
 
 final GetIt locator = GetIt.instance;
 
@@ -134,7 +140,7 @@ void setupLocator() {
   // =========================
   // Products - Presentation / Cubit
   // =========================
-  locator.registerFactory(
+  locator.registerLazySingleton<ToppinsAndOptionsCubit>(
     () => ToppinsAndOptionsCubit(locator<ToppingsAndOptionsUseCase>()),
   );
 
@@ -197,22 +203,35 @@ void setupLocator() {
   locator.registerLazySingleton<CartCubit>(
     () => CartCubit(locator<CartUseCase>()),
   );
+  locator.registerLazySingleton<SaveOrdersCubit>(
+    () => SaveOrdersCubit(locator<CartUseCase>()),
+  );
   // ======================================================
-  // =======================    =====================
+  // ======================= Order Hostory    =====================
   // ======================================================
 
   // =========================
   //      - Data
   // =========================
+  locator.registerLazySingleton<BaseOrderHistoryRemoteDataSource>(
+    () => OrdersHistoryRemoteDataSource(locator<ApiServices>()),
+  );
 
+  locator.registerLazySingleton<BaseOrderHistoryRepo>(
+    () => OrderHistoryRepo(locator<BaseOrderHistoryRemoteDataSource>()),
+  );
   // =========================
   //      - Domain / UseCases
   // =========================
-
+  locator.registerLazySingleton<OrderHistoryUseCases>(
+    () => OrderHistoryUseCases(locator<BaseOrderHistoryRepo>()),
+  );
   // =========================
   //      - Presentation / Cubit
   // =========================
-
+  locator.registerLazySingleton<OrderHistoryCubit>(
+    () => OrderHistoryCubit(locator<OrderHistoryUseCases>()),
+  );
   // ======================================================
   // =======================    =====================
   // ======================================================

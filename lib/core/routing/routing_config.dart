@@ -5,6 +5,7 @@ import 'package:hungry/core/routing/app_routes.dart';
 import 'package:hungry/features/auth/presentation/auth.dart';
 import 'package:hungry/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:hungry/features/cart/data/models/add_to_cart_model.dart';
+import 'package:hungry/features/cart/presentation/cubit/save_orders_cubit.dart';
 import 'package:hungry/features/check_out/presentation/screens/checkout_screen.dart';
 import 'package:hungry/features/home/data/model/product_model.dart';
 import 'package:hungry/features/home/presentation/cubit/add_to_cart_cubit.dart';
@@ -62,7 +63,9 @@ class RoutingConfig {
           final productDetails = state.extra as ProductModel;
           return MultiBlocProvider(
             providers: [
-              BlocProvider.value(value: locator<ToppinsAndOptionsCubit>()),
+              BlocProvider(
+                create: (context) => locator<ToppinsAndOptionsCubit>(),
+              ),
               BlocProvider(create: (context) => locator<AddToCartCubit>()),
             ],
             child: ProductDetailsScreen(product: productDetails),
@@ -78,9 +81,12 @@ class RoutingConfig {
           final totalPrice = extraData['totalPrice'] as String;
           final cartRequestModel =
               extraData['cartRequestModel'] as CartRequestModel;
-          return CheckoutScreen(
-            totalPrice: totalPrice,
-            cartRequestModel: cartRequestModel,
+          return BlocProvider(
+            create: (context) => locator<SaveOrdersCubit>(),
+            child: CheckoutScreen(
+              totalPrice: totalPrice,
+              cartRequestModel: cartRequestModel,
+            ),
           );
         },
       ),

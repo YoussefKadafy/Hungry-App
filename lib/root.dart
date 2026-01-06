@@ -11,6 +11,7 @@ import 'package:hungry/features/cart/presentation/screens/cart_screen.dart';
 import 'package:hungry/features/home/presentation/cubit/category_cubit.dart';
 import 'package:hungry/features/home/presentation/cubit/get_products_cubit.dart';
 import 'package:hungry/features/home/presentation/screens/home_screen.dart';
+import 'package:hungry/features/orderHistory/presentation/cubit/order_history_cubit.dart';
 import 'package:hungry/features/orderHistory/presentation/screens/order_history_screen.dart';
 
 class RootScreen extends StatefulWidget {
@@ -38,7 +39,10 @@ class _RootScreenState extends State<RootScreen> {
         create: (context) => locator<CartCubit>(),
         child: CartScreen(),
       ),
-      const OrderHistoryScreen(),
+      BlocProvider(
+        create: (context) => locator<OrderHistoryCubit>(),
+        child: const OrderHistoryScreen(),
+      ),
       const ProfileScreen(),
     ];
     _controller = PageController(initialPage: currentIndex);

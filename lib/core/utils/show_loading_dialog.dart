@@ -4,6 +4,7 @@ void showLoadingDialog(BuildContext context) {
   showDialog(
     context: context,
     barrierDismissible: false,
+    useRootNavigator: true,
     builder: (_) => const Dialog(
       backgroundColor: Colors.transparent,
       elevation: 0,

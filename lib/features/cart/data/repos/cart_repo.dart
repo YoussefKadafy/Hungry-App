@@ -41,8 +41,8 @@ class CartRepo extends BaseCartRepo {
     required CartRequestModel request,
   }) async {
     try {
-      final response = remouteCartDataSource.saveOrder(request);
-      return Right(response.toString());
+      final response = await remouteCartDataSource.saveOrder(request);
+      return Right(response);
     } on DioException catch (e) {
       return Left(ApiExceptions.handleError(e));
     } catch (e) {

@@ -39,8 +39,7 @@ Future<void> showSuccessDialog(
                     children: [
                       Expanded(
                         child: CustomButton(
-                          backgroundColor: Colors.red,
-                          text: 'Cancel',
+                          text: 'Just Pay',
                           onTap: () {
                             Navigator.pop(context);
                           },
@@ -49,7 +48,9 @@ Future<void> showSuccessDialog(
                       8.width,
                       Expanded(
                         child: CustomButton(
-                          text: 'Save',
+                          backgroundColor: Colors.blueAccent,
+
+                          text: 'Pay & Save',
                           onTap: confirmPressed,
                         ),
                       ),
