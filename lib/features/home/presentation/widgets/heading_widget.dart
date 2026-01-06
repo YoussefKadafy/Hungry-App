@@ -7,7 +7,7 @@ import 'package:hungry/core/consts/app_colors.dart';
 import 'package:hungry/core/shared/custom_text.dart';
 import 'package:hungry/core/translations/locale_keys.g.dart';
 import 'package:hungry/core/utils/sized_box_extension.dart';
-import 'package:hungry/features/home/presentation/widgets/welcomming_shimmer_for_heading.dart';
+import 'package:hungry/features/home/presentation/widgets/welcomming_shimmer_for_heading_home.dart';
 import 'package:hungry/features/profile/presentation/cubit/get_profile_states.dart';
 import 'package:hungry/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:shimmer/shimmer.dart';

@@ -37,6 +37,7 @@ class SideOptionsSection extends StatelessWidget {
                 height: 200.h,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
+                  physics: const BouncingScrollPhysics(),
                   itemCount: options.length,
                   padding: EdgeInsetsDirectional.only(start: 16.w),
                   clipBehavior: Clip.none,

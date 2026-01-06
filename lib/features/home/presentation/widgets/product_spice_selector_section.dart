@@ -52,6 +52,8 @@ class ProductSpiceSelectorSection extends StatelessWidget {
           Hero(
             tag: product.id,
             child: CachedNetworkImage(
+              width: 217.w,
+              height: 297.h,
               imageUrl: product.imageUrl,
               fit: BoxFit.fill,
               placeholder: (context, url) => Center(
