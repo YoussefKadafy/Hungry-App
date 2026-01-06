@@ -20,13 +20,13 @@ class ProfileTextFieldSection extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CustomTextField(
+          CustomProfileTextField(
             controller: _nameController,
             labelText: 'Name',
             textColor: AppColors.black,
           ),
           25.height,
-          CustomTextField(
+          CustomProfileTextField(
             controller: _emailController,
             labelText: 'Email',
             textColor: AppColors.black,
@@ -34,7 +34,7 @@ class ProfileTextFieldSection extends StatelessWidget {
 
           25.height,
 
-          CustomTextField(
+          CustomProfileTextField(
             controller: _addressController,
             labelText: 'Address',
             textColor: AppColors.black,
