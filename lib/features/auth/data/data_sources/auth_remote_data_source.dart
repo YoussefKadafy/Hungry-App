@@ -11,7 +11,6 @@ abstract class BaseAuthRemoteDataSource {
     required String email,
     required String password,
   });
-  Future<void> logout();
 }
 
 class AuthRemoteDataSource extends BaseAuthRemoteDataSource {
@@ -56,11 +55,5 @@ class AuthRemoteDataSource extends BaseAuthRemoteDataSource {
       await PrefHelper.saveToken(user.token!);
     }
     return user;
-  }
-
-  @override
-  Future<void> logout() async {
-    await apiServices.post('/logout', {});
-    await PrefHelper.removeToken();
   }
 }

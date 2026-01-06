@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hungry/core/consts/app_assets.dart';
 import 'package:hungry/core/consts/app_colors.dart';
 import 'package:hungry/core/shared/custom_button.dart';
 import 'package:hungry/core/shared/custom_text.dart';
-import 'package:hungry/core/utils/date_formatted_extension.dart';
 import 'package:hungry/core/utils/sized_box_extension.dart';
 import 'package:hungry/features/orderHistory/data/model/datum.dart';
 

@@ -33,6 +33,15 @@ import 'package:hungry/features/orderHistory/data/repo/order_history_repo.dart';
 import 'package:hungry/features/orderHistory/domain/repo/base_order_history_repo.dart';
 import 'package:hungry/features/orderHistory/domain/useCases/order_history_use_cases.dart';
 import 'package:hungry/features/orderHistory/presentation/cubit/order_history_cubit.dart';
+import 'package:hungry/features/profile/data/data_source/profile_data_source.dart';
+import 'package:hungry/features/profile/data/repo/profile_repo.dart';
+import 'package:hungry/features/profile/data/repo/update_profile_repo.dart';
+import 'package:hungry/features/profile/domain/repo/base_profile_repo.dart';
+import 'package:hungry/features/profile/domain/repo/base_update_profile_repo.dart';
+import 'package:hungry/features/profile/domain/use_case/profile_use_case.dart';
+import 'package:hungry/features/profile/domain/use_case/update_profile_use_case.dart';
+import 'package:hungry/features/profile/presentation/cubit/profile_cubit.dart';
+import 'package:hungry/features/profile/presentation/cubit/update_profile_cubit.dart';
 
 final GetIt locator = GetIt.instance;
 
@@ -233,21 +242,39 @@ void setupLocator() {
     () => OrderHistoryCubit(locator<OrderHistoryUseCases>()),
   );
   // ======================================================
-  // =======================    =====================
+  // =======================  Profile  =====================
   // ======================================================
 
   // =========================
   //      - Data
   // =========================
-
+  locator.registerLazySingleton<BaseProfileDataSource>(
+    () => ProfileDataSource(locator<ApiServices>()),
+  );
+  locator.registerLazySingleton<BaseProfileRepo>(
+    () => ProfileRepo(locator<BaseProfileDataSource>()),
+  );
+  locator.registerLazySingleton<BaseUpdateProfileRepo>(
+    () => UpdateProfileRepo(locator<BaseProfileDataSource>()),
+  );
   // =========================
   //      - Domain / UseCases
   // =========================
-
+  locator.registerLazySingleton<ProfileUseCase>(
+    () => ProfileUseCase(locator<BaseProfileRepo>()),
+  );
+  locator.registerLazySingleton<UpdateProfileUseCase>(
+    () => UpdateProfileUseCase(locator<BaseUpdateProfileRepo>()),
+  );
   // =========================
   //      - Presentation / Cubit
   // =========================
-
+  locator.registerLazySingleton<ProfileCubit>(
+    () => ProfileCubit(locator<ProfileUseCase>()),
+  );
+  locator.registerLazySingleton<UpdateProfileCubit>(
+    () => UpdateProfileCubit(locator<UpdateProfileUseCase>()),
+  );
   // ======================================================
   // =======================    =====================
   // ======================================================
