@@ -13,4 +13,5 @@ abstract class BaseAuthRepo {
     required String email,
     required String password,
   });
+  Future<Either<Failure, void>> logout();
 }

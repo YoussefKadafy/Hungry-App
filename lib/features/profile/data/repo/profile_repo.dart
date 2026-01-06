@@ -12,18 +12,6 @@ class ProfileRepo extends BaseProfileRepo {
   ProfileRepo(this.remoteDataSource);
 
   @override
-  Future<Either<Failure, void>> logout() async {
-    try {
-      await remoteDataSource.logout();
-      return const Right(null);
-    } on DioException catch (e) {
-      return Left(ApiExceptions.handleError(e));
-    } catch (e) {
-      return Left(ApiError(message: e.toString()));
-    }
-  }
-
-  @override
   Future<Either<Failure, UserModel>> getProfile() async {
     try {
       final response = await remoteDataSource.getProfile();

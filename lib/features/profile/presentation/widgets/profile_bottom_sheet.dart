@@ -5,11 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hungry/core/consts/app_colors.dart';
+import 'package:hungry/core/routing/app_routes.dart';
 import 'package:hungry/core/shared/custom_text.dart';
 import 'package:hungry/core/translations/locale_keys.g.dart';
 import 'package:hungry/core/utils/show_loading_dialog.dart';
 import 'package:hungry/core/utils/sized_box_extension.dart';
+import 'package:hungry/features/auth/presentation/cubit/logout_cubit.dart';
+import 'package:hungry/features/auth/presentation/cubit/logout_states.dart';
 import 'package:hungry/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:hungry/features/profile/presentation/cubit/update_profile_cubit.dart';
 import 'package:hungry/features/profile/presentation/cubit/update_profile_states.dart';
@@ -98,25 +102,37 @@ class ProfileBottomSheet extends StatelessWidget {
                 ),
               ),
             ),
-            GestureDetector(
-              onTap: () {},
-              child: Container(
-                padding: 16.paddingAll,
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: AppColors.red, width: 1.5),
-                ),
-                child: Row(
-                  children: [
-                    CustomText(
-                      text: LocaleKeys.logOut.tr(),
-                      fontSize: 18,
-                      color: AppColors.red,
-                    ),
-                    10.width,
-                    Icon(Icons.logout_outlined, color: AppColors.red),
-                  ],
+            BlocListener<LogoutCubit, LogoutState>(
+              listener: (context, state) {
+                if (state is LogoutSuccess) {
+                  context.pushReplacementNamed(AppRoutes.login);
+                }
+                if (state is LogoutLoading) {
+                  showLoadingDialog(context);
+                }
+              },
+              child: GestureDetector(
+                onTap: () {
+                  context.read<LogoutCubit>().logout();
+                },
+                child: Container(
+                  padding: 16.paddingAll,
+                  decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: AppColors.red, width: 1.5),
+                  ),
+                  child: Row(
+                    children: [
+                      CustomText(
+                        text: LocaleKeys.logOut.tr(),
+                        fontSize: 18,
+                        color: AppColors.red,
+                      ),
+                      10.width,
+                      Icon(Icons.logout_outlined, color: AppColors.red),
+                    ],
+                  ),
                 ),
               ),
             ),

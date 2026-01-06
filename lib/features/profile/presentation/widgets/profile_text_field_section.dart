@@ -40,7 +40,7 @@ class ProfileTextFieldSection extends StatelessWidget {
             textColor: AppColors.black,
           ),
           34.height,
-          Divider(thickness: 1.5, color: AppColors.white),
+          Divider(thickness: 1.5, color: AppColors.black),
         ],
       ),
     );

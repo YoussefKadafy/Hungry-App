@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:hungry/core/network/api_services.dart';
-import 'package:hungry/core/utils/pref_helper.dart';
 import 'package:hungry/features/auth/data/model/user_model.dart';
 
 abstract class BaseProfileDataSource {
@@ -13,18 +12,12 @@ abstract class BaseProfileDataSource {
     String? image,
     String? phone,
   });
-  Future<void> logout();
 }
 
 class ProfileDataSource extends BaseProfileDataSource {
   final ApiServices apiServices;
 
   ProfileDataSource(this.apiServices);
-  @override
-  Future<void> logout() async {
-    await apiServices.post('/logout', {});
-    await PrefHelper.removeToken();
-  }
 
   @override
   Future<UserModel> getProfile() async {

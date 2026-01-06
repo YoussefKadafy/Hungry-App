@@ -21,3 +21,9 @@ class RegisterUseCase {
     required String password,
   }) => authRepo.register(name: name, email: email, password: password);
 }
+
+class LogoutUseCase {
+  final BaseAuthRepo authRepo;
+  LogoutUseCase(this.authRepo);
+  Future<Either<Failure, void>> call() => authRepo.logout();
+}

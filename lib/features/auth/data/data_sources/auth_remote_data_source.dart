@@ -5,6 +5,7 @@ import 'package:hungry/features/auth/data/model/user_model.dart';
 
 abstract class BaseAuthRemoteDataSource {
   Future<UserModel?> login({required String email, required String password});
+  Future<void> logout();
 
   Future<UserModel?> register({
     required String name,
@@ -55,5 +56,11 @@ class AuthRemoteDataSource extends BaseAuthRemoteDataSource {
       await PrefHelper.saveToken(user.token!);
     }
     return user;
+  }
+
+  @override
+  Future<void> logout() async {
+    await apiServices.post('/logout', {});
+    await PrefHelper.removeToken();
   }
 }
