@@ -156,7 +156,7 @@ void setupLocator() {
   // =========================
   // Products - Presentation / Cubit
   // =========================
-  locator.registerLazySingleton<ToppinsAndOptionsCubit>(
+  locator.registerFactory<ToppinsAndOptionsCubit>(
     () => ToppinsAndOptionsCubit(locator<ToppingsAndOptionsUseCase>()),
   );
 
@@ -191,7 +191,7 @@ void setupLocator() {
   // =========================
   //AddToCart- Presentation / Cubit
   // =========================
-  locator.registerLazySingleton<AddToCartCubit>(
+  locator.registerFactory<AddToCartCubit>(
     () => AddToCartCubit(locator<AddToCartUseCase>()),
   );
   // ======================================================

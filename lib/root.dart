@@ -31,7 +31,7 @@ class _RootScreenState extends State<RootScreen> {
   @override
   void initState() {
     super.initState();
-
+    currentIndex = 0;
     BlocProvider.of<GetProductsCubit>(context).getProducts();
     BlocProvider.of<CategoryCubit>(context).getCategories();
     screens = [

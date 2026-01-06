@@ -23,13 +23,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     super.initState();
     context.read<ToppinsAndOptionsCubit>().fetchToppings();
     context.read<ToppinsAndOptionsCubit>().fetchSideOptions();
+    context.read<AddToCartCubit>().spiceLevel;
   }
 
   @override
   Widget build(BuildContext context) {
     final product = widget.product;
     final bottomInset = MediaQuery.of(context).viewPadding.bottom;
-    final spiceValue = context.watch<AddToCartCubit>().spiceLevel;
+    double spiceValue = context.watch<AddToCartCubit>().spiceLevel;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

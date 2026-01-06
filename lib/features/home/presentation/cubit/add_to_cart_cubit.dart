@@ -15,6 +15,7 @@ class AddToCartCubit extends Cubit<AddToCartState> {
   List<int> get optionsId => _optionsId;
 
   Future<void> addToCart(CartRequestModel request) async {
+    if (isClosed) return;
     emit(AddToCartLoading());
     final result = await useCase.call(request);
     result.fold(
@@ -25,6 +26,7 @@ class AddToCartCubit extends Cubit<AddToCartState> {
   }
 
   void addToppingsId(int id) {
+    if (isClosed) return;
     if (_toppingsId.contains(id)) {
       _toppingsId.remove(id);
     } else {
@@ -34,6 +36,7 @@ class AddToCartCubit extends Cubit<AddToCartState> {
   }
 
   void addOptionsId(int id) {
+    if (isClosed) return;
     if (_optionsId.contains(id)) {
       _optionsId.remove(id);
     } else {
@@ -50,6 +53,7 @@ class AddToCartCubit extends Cubit<AddToCartState> {
   }
 
   void spiceLevelChanged(double value) {
+    if (isClosed) return;
     _spiceLevel = value;
     emit(AddToCartInitial());
   }
