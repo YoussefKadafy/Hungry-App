@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hungry/core/consts/app_assets.dart';
@@ -62,7 +63,15 @@ class ProductDetailsListViewItem extends StatelessWidget {
                 child: ClipRRect(
                   clipBehavior: Clip.none,
                   borderRadius: BorderRadius.circular(8.r),
-                  child: Image.network(imagePath, fit: BoxFit.scaleDown),
+                  child: CachedNetworkImage(
+                    imageUrl: imagePath,
+                    fit: BoxFit.fill,
+                    placeholder: (context, url) => Center(
+                      child: CircularProgressIndicator(
+                        color: AppColors.primaryColor,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),

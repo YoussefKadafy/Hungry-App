@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -101,7 +102,17 @@ class _CartItemState extends State<CartItem>
                     children: [
                       SizedBox(
                         width: 111.w,
-                        child: Image.network(widget.item.image ?? ''),
+                        child: CachedNetworkImage(
+                          imageUrl: widget.item.image ?? '',
+                          fit: BoxFit.cover,
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                          placeholder: (context, url) => const Center(
+                            child: CircularProgressIndicator(
+                              color: AppColors.primaryColor,
+                            ),
+                          ),
+                        ),
                       ),
                       8.height,
                       Text(
@@ -217,7 +228,17 @@ class _CartItemState extends State<CartItem>
                             ],
                           ),
                           child: ClipOval(
-                            child: Image.network(image, fit: BoxFit.cover),
+                            child: CachedNetworkImage(
+                              imageUrl: image,
+                              fit: BoxFit.cover,
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                              placeholder: (context, url) => const Center(
+                                child: CircularProgressIndicator(
+                                  color: AppColors.primaryColor,
+                                ),
+                              ),
+                            ),
                           ),
                         );
                       },

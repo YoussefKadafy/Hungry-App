@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hungry/core/consts/app_colors.dart';
@@ -30,12 +31,14 @@ class OrderHistoryItem extends StatelessWidget {
               children: [
                 SizedBox(
                   width: 111.w,
-                  child: Image.network(
-                    order.productImage ?? "",
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Icon(Icons.error);
-                    },
+                  child: CachedNetworkImage(
+                    imageUrl: order.productImage ?? '',
+                    fit: BoxFit.fill,
+                    placeholder: (context, url) => Center(
+                      child: CircularProgressIndicator(
+                        color: AppColors.primaryColor,
+                      ),
+                    ),
                   ),
                 ),
                 12.width,

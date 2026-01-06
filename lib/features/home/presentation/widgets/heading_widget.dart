@@ -7,6 +7,7 @@ import 'package:hungry/core/consts/app_colors.dart';
 import 'package:hungry/core/shared/custom_text.dart';
 import 'package:hungry/core/translations/locale_keys.g.dart';
 import 'package:hungry/core/utils/sized_box_extension.dart';
+import 'package:hungry/features/home/presentation/widgets/welcomming_shimmer_for_heading.dart';
 import 'package:hungry/features/profile/presentation/cubit/get_profile_states.dart';
 import 'package:hungry/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:shimmer/shimmer.dart';
@@ -81,61 +82,8 @@ class _HeadingWidgetState extends State<HeadingWidget> {
           );
         }
 
-        return WelcomeRowSkeleton();
+        return WelcomingShimmerForHeadingHome();
       },
-    );
-  }
-}
-
-class WelcomeRowSkeleton extends StatelessWidget {
-  const WelcomeRowSkeleton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        // Left Column (Text skeletons)
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // First line skeleton
-            Shimmer.fromColors(
-              baseColor: AppColors.grey.withOpacity(0.3),
-              highlightColor: AppColors.grey.withOpacity(0.1),
-              child: Container(
-                width: 120.w,
-                height: 18.h,
-                decoration: BoxDecoration(
-                  color: AppColors.grey,
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-              ),
-            ),
-            5.height,
-            // Second line skeleton (2 lines)
-            Shimmer.fromColors(
-              baseColor: AppColors.grey.withOpacity(0.3),
-              highlightColor: AppColors.grey.withOpacity(0.1),
-              child: Container(
-                width: 200.w,
-                height: 36.h,
-                decoration: BoxDecoration(
-                  color: AppColors.grey,
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-              ),
-            ),
-          ],
-        ),
-
-        // Right CircleAvatar skeleton
-        Shimmer.fromColors(
-          baseColor: AppColors.grey.withOpacity(0.3),
-          highlightColor: AppColors.grey.withOpacity(0.1),
-          child: CircleAvatar(radius: 35.r, backgroundColor: AppColors.grey),
-        ),
-      ],
     );
   }
 }

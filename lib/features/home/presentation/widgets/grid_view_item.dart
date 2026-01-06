@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hungry/core/consts/app_colors.dart';
 import 'package:hungry/core/utils/sized_box_extension.dart';
 import 'package:hungry/features/home/data/model/product_model.dart';
 import 'package:shimmer/shimmer.dart';
@@ -27,7 +29,16 @@ class GridViewItem extends StatelessWidget {
               child: Center(
                 child: SizedBox(
                   height: 121.h,
-                  child: Image.network(product.imageUrl, fit: BoxFit.cover),
+                  child: CachedNetworkImage(
+                    imageUrl: product.imageUrl,
+                    fit: BoxFit.fill,
+
+                    placeholder: (context, url) => Center(
+                      child: CircularProgressIndicator(
+                        color: AppColors.primaryColor,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
