@@ -1,4 +1,4 @@
-part of '../auth.dart';
+part of '../../../auth/presentation/auth.dart';
 
 class ProfileTextFieldSection extends StatelessWidget {
   const ProfileTextFieldSection({
@@ -20,13 +20,25 @@ class ProfileTextFieldSection extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CustomTextField(controller: _nameController, labelText: 'Name'),
+          CustomTextField(
+            controller: _nameController,
+            labelText: 'Name',
+            textColor: AppColors.black,
+          ),
           25.height,
-          CustomTextField(controller: _emailController, labelText: 'Email'),
+          CustomTextField(
+            controller: _emailController,
+            labelText: 'Email',
+            textColor: AppColors.black,
+          ),
 
           25.height,
 
-          CustomTextField(controller: _addressController, labelText: 'Address'),
+          CustomTextField(
+            controller: _addressController,
+            labelText: 'Address',
+            textColor: AppColors.black,
+          ),
           34.height,
           Divider(thickness: 1.5, color: AppColors.white),
         ],

@@ -64,7 +64,7 @@ class CustomPaymentCard extends StatelessWidget {
                     onChanged(value);
                   }
                 },
-                fillColor: WidgetStatePropertyAll(AppColors.white),
+                fillColor: WidgetStatePropertyAll(AppColors.primaryColor),
               ),
             ],
           ),

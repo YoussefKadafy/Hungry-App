@@ -16,6 +16,7 @@ class CustomTextField extends StatefulWidget {
   final bool autofocus;
   final int maxLines;
   final double borderRadius;
+  final Color? textColor;
 
   const CustomTextField({
     super.key,
@@ -32,7 +33,8 @@ class CustomTextField extends StatefulWidget {
     this.readOnly = false,
     this.autofocus = false,
     this.maxLines = 1,
-    this.borderRadius = 20,
+    this.borderRadius = 8,
+    this.textColor,
   });
 
   @override
@@ -71,8 +73,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
     return TextFormField(
       focusNode: _focusNode,
-      cursorColor: AppColors.white,
-      style: const TextStyle(color: AppColors.white),
+      cursorColor: AppColors.black,
+      style: const TextStyle(color: AppColors.black),
       controller: widget.controller,
       keyboardType: widget.keyboardType,
       obscureText: widget.obscureText,
@@ -89,10 +91,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
         suffixIcon: widget.suffixIcon,
 
         labelStyle: TextStyle(
-          color: isFocused ? AppColors.white : AppColors.grey,
+          color: isFocused ? AppColors.primaryColor : AppColors.grey,
         ),
 
-        hintStyle: const TextStyle(color: AppColors.white),
+        hintStyle: TextStyle(color: widget.textColor ?? AppColors.white),
 
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
@@ -100,8 +102,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ),
 
         border: _buildBorder(AppColors.textFieldBorderColor),
-        enabledBorder: _buildBorder(AppColors.textFieldBorderColor),
-        focusedBorder: _buildBorder(AppColors.textFieldBorderColor, width: 2),
+        enabledBorder: _buildBorder(AppColors.black),
+        focusedBorder: _buildBorder(AppColors.black, width: 2),
         disabledBorder: _buildBorder(AppColors.textFieldDisabledHintColor),
         errorBorder: _buildBorder(Colors.red),
         focusedErrorBorder: _buildBorder(Colors.red, width: 2),

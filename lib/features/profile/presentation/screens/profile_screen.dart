@@ -68,111 +68,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
           return Skeletonizer(
             enabled: state is ProfileLoading,
             child: Scaffold(
-              backgroundColor: AppColors.primaryColor,
-              bottomSheet: Container(
-                height: 100,
-                color: AppColors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      BlocListener<UpdateProfileCubit, UpdateProfileStates>(
-                        listener: (context, state) {
-                          if (state is UpdateProfileLoading) {
-                            showLoadingDialog(context);
-                          }
-
-                          if (state is UpdateProfileSuccess) {
-                            Navigator.pop(context);
-                            context.read<ProfileCubit>().getProfile();
-                          }
-                        },
-                        child: GestureDetector(
-                          onTap: () {
-                            context.read<UpdateProfileCubit>().updateProfile(
-                              name: _nameController.text,
-                              address: _addressController.text,
-                              email: _emailController.text,
-                              image: imageFile?.path,
-                            );
-                          },
-                          child: Container(
-                            padding: 16.paddingAll,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(
-                                color: AppColors.primaryColor,
-                                width: 1.5,
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                CustomText(
-                                  text: LocaleKeys.editeProfile.tr(),
-                                  fontSize: 18,
-                                  color: AppColors.primaryColor,
-                                ),
-                                10.width,
-                                Icon(
-                                  Icons.edit_square,
-                                  color: AppColors.primaryColor,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          padding: 16.paddingAll,
-                          decoration: BoxDecoration(
-                            color: AppColors.primaryColor,
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                              color: AppColors.white,
-                              width: 1.5,
-                            ),
-                          ),
-                          child: Row(
-                            children: [
-                              CustomText(
-                                text: LocaleKeys.logOut.tr(),
-                                fontSize: 18,
-                                color: AppColors.white,
-                              ),
-                              10.width,
-                              Icon(
-                                Icons.logout_outlined,
-                                color: AppColors.white,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              backgroundColor: AppColors.white,
+              bottomSheet: ProfileBottomSheet(
+                nameController: _nameController,
+                addressController: _addressController,
+                emailController: _emailController,
+                imageFile: imageFile,
               ),
               appBar: AppBar(
                 elevation: 0,
                 scrolledUnderElevation: 0,
                 leading: GestureDetector(
                   onTap: () {},
-                  child: Icon(Icons.arrow_back, color: AppColors.white),
+                  child: Icon(Icons.arrow_back, color: AppColors.primaryColor),
                 ),
-                backgroundColor: AppColors.primaryColor,
+                backgroundColor: AppColors.white,
                 actions: [
                   IconButton(
                     onPressed: () {},
-                    icon: Icon(Icons.settings, color: AppColors.white),
+                    icon: Icon(Icons.settings, color: AppColors.primaryColor),
                   ),
                 ],
               ),
               body: RefreshIndicator(
-                onRefresh: () async {},
+                onRefresh: () async {
+                  context.read<ProfileCubit>().getProfile();
+                },
                 color: AppColors.lightPrimaryColor,
                 backgroundColor: AppColors.white,
                 child: SingleChildScrollView(
@@ -180,91 +101,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     parent: BouncingScrollPhysics(),
                   ),
                   scrollDirection: Axis.vertical,
-                  child: Column(
-                    children: [
-                      20.height,
-                      Stack(
-                        children: [
-                          Container(
-                            width: 120,
-                            height: 120,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: AppColors.white,
-                                width: 3,
-                              ),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(60),
-                              child: imageFile != null
-                                  ? Image(
-                                      image: FileImage(imageFile!),
-                                      fit: BoxFit.fill,
-                                    )
-                                  : CachedNetworkImage(
-                                      imageUrl: userModel?.image ?? '',
-                                      fit: BoxFit.fill,
-                                      placeholder: (context, url) => Center(
-                                        child: CircularProgressIndicator(
-                                          color: AppColors.primaryColor,
-                                        ),
-                                      ),
-                                      errorWidget: (context, url, error) =>
-                                          Icon(
-                                            Icons.person,
-                                            size: 60,
-                                            color: AppColors.grey,
-                                          ),
-                                    ),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            right: 0,
-                            child: Skeleton.ignore(
-                              child: Stack(
-                                children: [
-                                  IconButton(
-                                    onPressed: pickImage,
-                                    icon: Icon(
-                                      CupertinoIcons.photo_camera_solid,
-                                      color: AppColors.white,
-                                      blendMode: BlendMode.srcOver,
-                                      size: 26,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      38.height,
-                      ProfileTextFieldSection(
-                        nameController: _nameController,
-                        emailController: _emailController,
-                        addressController: _addressController,
-                      ),
-                      36.height,
-                      SafeArea(
-                        bottom: true,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            left: 16.w,
-                            right: 16.w,
-                            bottom:
-                                116, // Account for bottom sheet (100) + extra padding (16)
-                          ),
-                          child: CustomPaymentCard(
-                            visaNumber: userModel?.visa ?? '',
-                            selectedCard: 'visa',
-                            onChanged: (value) {},
-                          ),
-                        ),
-                      ),
-                      36.height,
-                    ],
+                  child: ProfileBody(
+                    imagePicker: pickImage,
+                    imageFile: imageFile,
+                    userModel: userModel,
+                    nameController: _nameController,
+                    emailController: _emailController,
+                    addressController: _addressController,
                   ),
                 ),
               ),

@@ -26,6 +26,9 @@ import 'package:hungry/features/profile/presentation/cubit/get_profile_states.da
 import 'package:hungry/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:hungry/features/profile/presentation/cubit/update_profile_cubit.dart';
 import 'package:hungry/features/profile/presentation/cubit/update_profile_states.dart';
+import 'package:hungry/features/profile/presentation/widgets/photo_section.dart';
+import 'package:hungry/features/profile/presentation/widgets/profile_body.dart';
+import 'package:hungry/features/profile/presentation/widgets/profile_bottom_sheet.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -36,7 +39,7 @@ part 'widgets/top_login_screen_section.dart';
 part '../presentation/widgets/register_text_field_section.dart';
 part '../presentation/widgets/login_text_fields_section.dart';
 part '../presentation/widgets/custom_auth_button.dart';
-part '../presentation/widgets/profile_text_field_section.dart';
+part '../../profile/presentation/widgets/profile_text_field_section.dart';
 part 'widgets/bottom_login_screen_section.dart';
 part '../presentation/widgets/login_bloc_section.dart';
 part '../presentation/widgets/dont_have_account_widget.dart';
