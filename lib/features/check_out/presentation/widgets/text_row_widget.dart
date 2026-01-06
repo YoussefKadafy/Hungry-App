@@ -11,28 +11,32 @@ class TextRowWidget extends StatelessWidget {
     this.fontWeight = FontWeight.w500,
     this.fontSize,
   });
+
   final String prefixText, suffixText;
   final Color textColor;
   final FontWeight fontWeight;
   final double? fontSize;
+
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    final double size = fontSize?.sp ?? 18.sp;
 
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
           prefixText,
           style: TextStyle(
-            fontSize: fontSize?.sp ?? 18.sp,
+            fontSize: size,
             fontWeight: fontWeight,
             color: textColor,
           ),
         ),
+        Spacer(),
         Text(
           suffixText,
           style: TextStyle(
-            fontSize: fontSize?.sp ?? 18.sp,
+            fontSize: size,
             fontWeight: fontWeight,
             color: textColor,
           ),

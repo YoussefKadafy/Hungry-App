@@ -14,38 +14,52 @@ class OrderDetailsSection extends StatelessWidget {
   final double totalPrice;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: 36.paddingHorizontal,
-      child: Column(
-        children: [
-          TextRowWidget(
-            prefixText: 'Order',
-            suffixText: '\$ ${orderPrice.toStringAsFixed(2)}',
+    return Column(
+      children: [
+        Padding(
+          padding: 36.paddingHorizontal,
+          child: Column(
+            children: [
+              TextRowWidget(
+                prefixText: 'Order',
+                suffixText: '\$ ${orderPrice.toStringAsFixed(2)}',
+              ),
+              10.height,
+              TextRowWidget(prefixText: 'Taxes', suffixText: '\$ 1.5'),
+              10.height,
+              TextRowWidget(prefixText: 'Delivery Fee', suffixText: '\$ 4.00'),
+              8.5.height,
+            ],
           ),
-          10.height,
-          TextRowWidget(prefixText: 'Taxes', suffixText: '\$1.5'),
-          10.height,
-          TextRowWidget(prefixText: 'Delivery Fee', suffixText: '\$4'),
-          8.5.height,
-          const Divider(color: AppColors.lightGrey, thickness: 1.5),
-          24.5.height,
-          TextRowWidget(
-            prefixText: 'Total',
-            suffixText: '\$ ${totalPrice.toStringAsFixed(2)}',
-            fontWeight: FontWeight.bold,
-            textColor: AppColors.black,
-            fontSize: 32.sp,
+        ),
+        Padding(
+          padding: 16.paddingHorizontal,
+          child: const Divider(color: AppColors.darkBrown, thickness: 1.5),
+        ),
+        Padding(
+          padding: 16.paddingHorizontal,
+          child: Column(
+            children: [
+              24.5.height,
+              TextRowWidget(
+                prefixText: 'Total',
+                suffixText: '\$ ${totalPrice.toStringAsFixed(2)}',
+                fontWeight: FontWeight.bold,
+                textColor: AppColors.black,
+                fontSize: 32.sp,
+              ),
+              20.height,
+              TextRowWidget(
+                prefixText: 'Estimated delivery time:',
+                suffixText: '15 - 30 mins',
+                fontWeight: FontWeight.bold,
+                textColor: AppColors.black,
+                fontSize: 18.sp,
+              ),
+            ],
           ),
-          20.height,
-          TextRowWidget(
-            prefixText: 'Estimated delivery time:',
-            suffixText: '15 - 30 mins',
-            fontWeight: FontWeight.bold,
-            textColor: AppColors.black,
-            fontSize: 18.sp,
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

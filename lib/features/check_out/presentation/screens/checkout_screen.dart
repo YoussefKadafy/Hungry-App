@@ -89,6 +89,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              20.height,
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: CustomText(
@@ -97,7 +98,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   fontWeight: FontWeight.w700,
                 ),
               ),
+              Padding(
+                padding: 16.paddingHorizontal,
+                child: Divider(color: AppColors.darkBrown, thickness: 1.5),
+              ),
               20.height,
+
               OrderDetailsSection(
                 totalPrice: totalPrice,
                 orderPrice: orderPrice,
