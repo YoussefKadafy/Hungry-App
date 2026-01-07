@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hungry/core/consts/app_colors.dart';
 import 'package:hungry/core/routing/app_routes.dart';
 import 'package:hungry/core/shared/custom_text.dart';
+import 'package:hungry/core/shared/loading_state_widget.dart';
 import 'package:hungry/core/shared/no_orders.dart';
 import 'package:hungry/core/shared/snack_bar_dialog.dart';
 import 'package:hungry/core/shared/total_price_and_cart_widget.dart';
@@ -48,7 +49,7 @@ class _CartScreenState extends State<CartScreen> {
           },
           builder: (context, state) {
             if (state is CartLoading) {
-              return const Center(child: CircularProgressIndicator());
+              return const LoadingStateWidget();
             }
 
             if (state is CartError) {
