@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:hungry/core/consts/app_assets.dart';
 import 'package:lottie/lottie.dart';
 
-void showLoadingDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    barrierDismissible: false,
-    useRootNavigator: true,
-    builder: (_) => Dialog(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
+class LoadingStateWidget extends StatelessWidget {
+  const LoadingStateWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
       child: SizedBox(
         height: 120,
         width: 120,
@@ -20,6 +18,6 @@ void showLoadingDialog(BuildContext context) {
           ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }

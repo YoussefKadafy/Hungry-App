@@ -14,6 +14,31 @@ class CartError extends CartState {
 class CartSuccess extends CartState {
   final CartModel cartModel;
   final int? removingId;
+  final double totalPrice;
+  final String message;
+  final bool reloaded;
 
-  CartSuccess({required this.cartModel, this.removingId});
+  CartSuccess({
+    required this.cartModel,
+    this.removingId,
+    this.totalPrice = 0.0,
+    this.message = '',
+    this.reloaded = false,
+  });
+
+  CartSuccess copyWith({
+    CartModel? cartModel,
+    int? removingId,
+    double? totalPrice,
+    String? message,
+    bool? reloaded,
+  }) {
+    return CartSuccess(
+      cartModel: cartModel ?? this.cartModel,
+      removingId: removingId,
+      totalPrice: totalPrice ?? this.totalPrice,
+      message: message ?? this.message,
+      reloaded: reloaded ?? false,
+    );
+  }
 }

@@ -7,6 +7,7 @@ import 'package:hungry/features/orderHistory/data/model/datum.dart';
 import 'package:hungry/features/orderHistory/data/repo/order_history_repo.dart';
 import 'package:hungry/features/orderHistory/presentation/cubit/order_history_cubit.dart';
 import 'package:hungry/features/orderHistory/presentation/cubit/order_history_states.dart';
+import 'package:hungry/core/shared/no_orders.dart';
 import 'package:hungry/features/orderHistory/presentation/widgets/order_history_item.dart';
 
 class OrderHistoryScreen extends StatefulWidget {
@@ -31,8 +32,10 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
         child: BlocBuilder<OrderHistoryCubit, OrderHistoryStates>(
           builder: (context, state) {
             if (state is OrderHistorySuccess) {
-              final itemsList = state.orderHistoryModel.data ?? [];
-
+              final itemsList = state.orderHistoryModel.data;
+              if (itemsList!.isEmpty) {
+                return EmptyStateWidget(text: "There are no orders saved yet");
+              }
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final item = itemsList[index];

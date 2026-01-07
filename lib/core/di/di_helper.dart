@@ -216,9 +216,7 @@ void setupLocator() {
   // =========================
   //  CART    - Presentation / Cubit
   // =========================
-  locator.registerLazySingleton<CartCubit>(
-    () => CartCubit(locator<CartUseCase>()),
-  );
+  locator.registerFactory<CartCubit>(() => CartCubit(locator<CartUseCase>()));
   locator.registerLazySingleton<SaveOrdersCubit>(
     () => SaveOrdersCubit(locator<CartUseCase>()),
   );
