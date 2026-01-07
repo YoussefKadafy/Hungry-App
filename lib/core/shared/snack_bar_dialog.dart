@@ -10,12 +10,12 @@ void snackBarDialog(
     message ?? 'This a snackbar with info type',
     type: type ?? AnimatedSnackBarType.success,
     borderRadius: BorderRadius.circular(16),
-
+    duration: const Duration(seconds: 5),
     mobilePositionSettings: const MobilePositionSettings(
       topOnAppearance: 100,
-      topOnDissapear: 50,
+      topOnDissapear: 40,
       bottomOnAppearance: 100,
-      bottomOnDissapear: 50,
+      bottomOnDissapear: 20,
       left: 20,
       right: 20,
     ),

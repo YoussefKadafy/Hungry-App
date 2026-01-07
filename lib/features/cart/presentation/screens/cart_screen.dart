@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hungry/core/consts/app_colors.dart';
 import 'package:hungry/core/routing/app_routes.dart';
-import 'package:hungry/core/shared/custom_text.dart';
 import 'package:hungry/core/shared/loading_state_widget.dart';
 import 'package:hungry/core/shared/no_orders.dart';
 import 'package:hungry/core/shared/snack_bar_dialog.dart';
