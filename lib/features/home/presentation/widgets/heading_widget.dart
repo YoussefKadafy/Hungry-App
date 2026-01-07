@@ -10,21 +10,9 @@ import 'package:hungry/core/utils/sized_box_extension.dart';
 import 'package:hungry/features/home/presentation/widgets/welcomming_shimmer_for_heading_home.dart';
 import 'package:hungry/features/profile/presentation/cubit/get_profile_states.dart';
 import 'package:hungry/features/profile/presentation/cubit/profile_cubit.dart';
-import 'package:shimmer/shimmer.dart';
 
-class HeadingWidget extends StatefulWidget {
+class HeadingWidget extends StatelessWidget {
   const HeadingWidget({super.key});
-
-  @override
-  State<HeadingWidget> createState() => _HeadingWidgetState();
-}
-
-class _HeadingWidgetState extends State<HeadingWidget> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<ProfileCubit>().getProfile();
-  }
 
   @override
   Widget build(BuildContext context) {
