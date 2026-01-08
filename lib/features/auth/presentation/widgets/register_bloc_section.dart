@@ -20,10 +20,15 @@ class RegisterBlocSection extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
+          if (state is AuthLoading) {
+            showLoadingDialog(context);
+          }
           if (state is AuthError) {
+            Navigator.pop(context);
             showCustomSnackBar(context, state.message);
           }
           if (state is AuthSuccess) {
+            Navigator.pop(context);
             context.pushReplacementNamed(AppRoutes.rootScreen);
           }
         },

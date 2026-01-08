@@ -18,18 +18,22 @@ class LoginBlocSection extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
+          if (state is AuthLoading) {
+            showLoadingDialog(context);
+          }
+
           if (state is AuthError) {
+            Navigator.pop(context);
             showCustomSnackBar(context, state.message);
           }
           if (state is AuthSuccess) {
+            Navigator.pop(context);
             context.pushReplacementNamed(AppRoutes.rootScreen);
           }
         },
         builder: (context, state) {
           return CustomAuthButton(
-            text: state is AuthLoading
-                ? 'Logging in...'
-                : LocaleKeys.logIn.tr(),
+            text: LocaleKeys.logIn.tr(),
             borderColor: Colors.white,
             textColor: AppColors.black,
             onPressed: () {
