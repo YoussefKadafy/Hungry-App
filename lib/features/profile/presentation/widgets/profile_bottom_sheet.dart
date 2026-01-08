@@ -46,7 +46,7 @@ class ProfileBottomSheet extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.black.withOpacity(0.15),
+            color: const Color(0x26000000),
             blurRadius: 10,
             spreadRadius: 0,
             offset: const Offset(0, -4), // 👈 شادو من فوق

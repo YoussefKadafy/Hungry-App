@@ -42,7 +42,7 @@ class FloatingBubbles extends StatelessWidget {
                         border: Border.all(color: Colors.greenAccent, width: 2),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey.withOpacity(.3),
+                            color: const Color(0x4D9E9E9E),
                             blurRadius: 3,
                             offset: Offset(0, 2),
                           ),
