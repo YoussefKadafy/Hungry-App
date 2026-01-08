@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hungry/core/consts/app_colors.dart';
 import 'package:hungry/core/utils/sized_box_extension.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -18,13 +17,13 @@ class WelcomingShimmerForHeadingHome extends StatelessWidget {
           children: [
             // First line skeleton
             Shimmer.fromColors(
-              baseColor: Color(0xFF9E9E9E),
-              highlightColor: Color(0xFF9E9E9E),
+              baseColor: const Color(0xFFBDBDBD), // Gray 400
+              highlightColor: const Color(0xFFE0E0E0), // Gray 300
               child: Container(
                 width: 120.w,
                 height: 18.h,
                 decoration: BoxDecoration(
-                  color: AppColors.grey,
+                  color: const Color(0xFFBDBDBD),
                   borderRadius: BorderRadius.circular(8.r),
                 ),
               ),
@@ -32,13 +31,13 @@ class WelcomingShimmerForHeadingHome extends StatelessWidget {
             5.height,
             // Second line skeleton (2 lines)
             Shimmer.fromColors(
-              baseColor: Color(0xFF9E9E9E),
-              highlightColor: Color(0xFF9E9E9E),
+              baseColor: const Color(0xFFBDBDBD),
+              highlightColor: const Color(0xFFE0E0E0),
               child: Container(
                 width: 200.w,
                 height: 36.h,
                 decoration: BoxDecoration(
-                  color: AppColors.grey,
+                  color: const Color(0xFFBDBDBD),
                   borderRadius: BorderRadius.circular(8.r),
                 ),
               ),
@@ -48,9 +47,12 @@ class WelcomingShimmerForHeadingHome extends StatelessWidget {
 
         // Right CircleAvatar skeleton
         Shimmer.fromColors(
-          baseColor: Color(0xFF9E9E9E),
-          highlightColor: Color(0xFF9E9E9E),
-          child: CircleAvatar(radius: 35.r, backgroundColor: AppColors.grey),
+          baseColor: const Color(0xFFBDBDBD),
+          highlightColor: const Color(0xFFE0E0E0),
+          child: CircleAvatar(
+            radius: 35.r,
+            backgroundColor: const Color(0xFFBDBDBD),
+          ),
         ),
       ],
     );
