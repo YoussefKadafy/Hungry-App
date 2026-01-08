@@ -15,4 +15,10 @@ class AppAssets {
   static const String lottieEmpty = 'assets/lottie/empty.json';
 
   static const String lottieLoader = 'assets/lottie/Loader 06 (3).json';
+  static const String lottieRemove = 'assets/lottie/Erasing Files.json';
+  static const String shoppingCartLottie =
+      'assets/lottie/E-commerce Shopping cart.json';
+
+  static const String lottieLoadingDots =
+      'assets/lottie/Loading Dots Blue.json';
 }
