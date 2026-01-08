@@ -112,11 +112,19 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   void _startAnimations() async {
+    // Start background subtle scale
     _scaleController.forward();
-    await Future.delayed(const Duration(milliseconds: 100));
-    _logoController.forward();
-    await Future.delayed(const Duration(milliseconds: 600));
-    _imageController.forward();
+
+    // Start logo animation
+    await _logoController.forward();
+
+    // Start image animation
+    await _imageController.forward();
+
+    // انتظر شويه بعد كل الأنيميشنز (اختياري)
+    await Future.delayed(const Duration(milliseconds: 400));
+
+    // ثم تنقل على حسب التوكن
     trafficPoliceOfficer();
   }
 
