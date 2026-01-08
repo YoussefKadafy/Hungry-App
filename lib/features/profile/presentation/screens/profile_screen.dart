@@ -14,7 +14,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   UserModel? userModel;
   File? imageFile;
   final ImagePicker picker = ImagePicker();
-
+  bool _isInitialized = false;
   Future<void> pickImage() async {
     final XFile? image = await picker.pickImage(
       source: ImageSource.gallery,
@@ -31,10 +31,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<ProfileCubit>().getProfile();
     _emailController = TextEditingController();
     _nameController = TextEditingController();
     _addressController = TextEditingController();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_isInitialized) return;
+    final state = context.read<ProfileCubit>().state;
+
+    if (state is ProfileSuccess && !_isInitialized) {
+      _nameController.text = state.userModel.name;
+      _emailController.text = state.userModel.email;
+      _addressController.text = state.userModel.address ?? 'Enter your address';
+      userModel = state.userModel;
+      _isInitialized = true;
+    }
   }
 
   @override

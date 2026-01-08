@@ -7,6 +7,7 @@ import 'package:hungry/core/shared/custom_payment_card.dart';
 import 'package:hungry/core/shared/custom_text.dart';
 import 'package:hungry/core/shared/snack_bar_dialog.dart';
 import 'package:hungry/core/shared/total_price_and_cart_widget.dart';
+import 'package:hungry/core/utils/show_cingrats.dart';
 import 'package:hungry/core/utils/show_dialog.dart';
 import 'package:hungry/core/utils/show_loading_dialog.dart';
 import 'package:hungry/core/utils/sized_box_extension.dart';
@@ -68,6 +69,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           listener: (context, state) {
             if (state is SaveOrderSuccess) {
               Navigator.of(context, rootNavigator: true).pop();
+              showCongrats(context);
+
               snackBarDialog(
                 context,
                 message: state.message,
