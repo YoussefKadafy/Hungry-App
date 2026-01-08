@@ -1,11 +1,12 @@
 import 'package:hungry/core/network/api_error.dart';
 import 'package:hungry/core/network/api_services.dart';
 import 'package:hungry/core/utils/pref_helper.dart';
+import 'package:hungry/features/auth/data/model/logout_response_model.dart';
 import 'package:hungry/features/auth/data/model/user_model.dart';
 
 abstract class BaseAuthRemoteDataSource {
   Future<UserModel?> login({required String email, required String password});
-  Future<void> logout();
+  Future<LogoutResponseModel> logout();
 
   Future<UserModel?> register({
     required String name,
@@ -59,8 +60,10 @@ class AuthRemoteDataSource extends BaseAuthRemoteDataSource {
   }
 
   @override
-  Future<void> logout() async {
-    await apiServices.post('/logout', {});
+  Future<LogoutResponseModel> logout() async {
+    final response = await apiServices.post('/logout', {});
     await PrefHelper.removeToken();
+
+    return LogoutResponseModel.fromJson(response);
   }
 }

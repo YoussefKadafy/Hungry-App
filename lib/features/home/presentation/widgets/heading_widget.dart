@@ -11,8 +11,19 @@ import 'package:hungry/features/home/presentation/widgets/welcomming_shimmer_for
 import 'package:hungry/features/profile/presentation/cubit/get_profile_states.dart';
 import 'package:hungry/features/profile/presentation/cubit/profile_cubit.dart';
 
-class HeadingWidget extends StatelessWidget {
+class HeadingWidget extends StatefulWidget {
   const HeadingWidget({super.key});
+
+  @override
+  State<HeadingWidget> createState() => _HeadingWidgetState();
+}
+
+class _HeadingWidgetState extends State<HeadingWidget> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<ProfileCubit>().getProfile();
+  }
 
   @override
   Widget build(BuildContext context) {

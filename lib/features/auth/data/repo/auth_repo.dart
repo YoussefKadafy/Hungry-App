@@ -4,6 +4,7 @@ import 'package:hungry/core/errors/failure.dart';
 import 'package:hungry/core/network/api_error.dart';
 import 'package:hungry/core/network/api_exceptions.dart';
 import 'package:hungry/features/auth/data/data_sources/auth_remote_data_source.dart';
+import 'package:hungry/features/auth/data/model/logout_response_model.dart';
 import 'package:hungry/features/auth/data/model/user_model.dart';
 import 'package:hungry/features/auth/domain/repo/base_auth_repo.dart';
 
@@ -51,10 +52,10 @@ class AuthRepo extends BaseAuthRepo {
   }
 
   @override
-  Future<Either<Failure, void>> logout() async {
+  Future<Either<Failure, LogoutResponseModel>> logout() async {
     try {
-      await remoteDataSource.logout();
-      return const Right(null);
+      final result = await remoteDataSource.logout();
+      return Right(result);
     } on DioException catch (e) {
       return Left(ApiExceptions.handleError(e));
     } catch (e) {

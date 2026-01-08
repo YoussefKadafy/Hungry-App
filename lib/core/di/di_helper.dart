@@ -274,7 +274,7 @@ void setupLocator() {
   // =========================
   //      - Presentation / Cubit
   // =========================
-  locator.registerLazySingleton<ProfileCubit>(
+  locator.registerFactory<ProfileCubit>(
     () => ProfileCubit(locator<ProfileUseCase>()),
   );
   locator.registerLazySingleton<UpdateProfileCubit>(

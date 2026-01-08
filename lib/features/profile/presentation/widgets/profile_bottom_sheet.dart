@@ -1,14 +1,16 @@
 import 'dart:io';
 
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hungry/core/consts/app_colors.dart';
 import 'package:hungry/core/routing/app_routes.dart';
+import 'package:hungry/core/shared/custom_snack_bar.dart';
 import 'package:hungry/core/shared/custom_text.dart';
+import 'package:hungry/core/shared/snack_bar_dialog.dart';
 import 'package:hungry/core/translations/locale_keys.g.dart';
 import 'package:hungry/core/utils/show_loading_dialog.dart';
 import 'package:hungry/core/utils/sized_box_extension.dart';
@@ -106,6 +108,15 @@ class ProfileBottomSheet extends StatelessWidget {
               listener: (context, state) {
                 if (state is LogoutSuccess) {
                   context.pushReplacementNamed(AppRoutes.login);
+                  snackBarDialog(
+                    context,
+                    message: state.message,
+                    type: AnimatedSnackBarType.success,
+                  );
+                }
+                if (state is LogoutError) {
+                  Navigator.pop(context);
+                  showCustomSnackBar(context, state.error);
                 }
                 if (state is LogoutLoading) {
                   showLoadingDialog(context);

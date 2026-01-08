@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hungry/core/shared/snack_bar_dialog.dart';
 import 'package:hungry/core/shared/total_price_and_cart_widget.dart';
-import 'package:hungry/core/utils/show_cingrats.dart';
+import 'package:hungry/core/utils/show_congrats.dart';
 import 'package:hungry/core/utils/show_loading_dialog.dart';
 import 'package:hungry/features/cart/data/models/add_to_cart_model.dart';
 import 'package:hungry/features/home/data/model/product_model.dart';

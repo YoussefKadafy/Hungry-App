@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hungry/core/consts/app_colors.dart';
 import 'package:hungry/core/routing/app_routes.dart';
+import 'package:hungry/core/shared/custom_text.dart';
 import 'package:hungry/core/shared/loading_state_widget.dart';
 import 'package:hungry/core/shared/no_orders.dart';
 import 'package:hungry/core/shared/snack_bar_dialog.dart';
@@ -25,7 +26,7 @@ class _CartScreenState extends State<CartScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<CartCubit>().getCart();
+    BlocProvider.of<CartCubit>(context).getCart();
   }
 
   @override
@@ -53,15 +54,23 @@ class _CartScreenState extends State<CartScreen> {
 
             if (state is CartError) {
               return Center(
-                child: IconButton(
-                  onPressed: () {
-                    context.read<CartCubit>().getCart();
-                  },
-                  icon: Icon(
-                    Icons.replay_outlined,
-                    color: AppColors.primaryColor,
-                    size: 40,
-                  ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CustomText(text: state.message, fontSize: 24),
+                    16.height,
+                    IconButton(
+                      onPressed: () {
+                        context.read<CartCubit>().getCart();
+                      },
+                      icon: Icon(
+                        Icons.replay_outlined,
+                        color: AppColors.primaryColor,
+                        size: 40,
+                      ),
+                    ),
+                  ],
                 ),
               );
             }

@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:hungry/core/errors/failure.dart';
+import 'package:hungry/features/auth/data/model/logout_response_model.dart';
 import 'package:hungry/features/auth/data/model/user_model.dart';
 import 'package:hungry/features/auth/domain/repo/base_auth_repo.dart';
 
@@ -25,5 +26,5 @@ class RegisterUseCase {
 class LogoutUseCase {
   final BaseAuthRepo authRepo;
   LogoutUseCase(this.authRepo);
-  Future<Either<Failure, void>> call() => authRepo.logout();
+  Future<Either<Failure, LogoutResponseModel>> call() => authRepo.logout();
 }

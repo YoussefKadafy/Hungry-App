@@ -12,7 +12,7 @@ class LogoutCubit extends Cubit<LogoutState> {
     final result = await useCase.call();
     result.fold(
       (failure) => emit(LogoutError(failure.toString())),
-      (r) => emit(LogoutSuccess()),
+      (r) => emit(LogoutSuccess(r.message.toString())),
     );
   }
 }

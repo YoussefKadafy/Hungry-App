@@ -24,18 +24,18 @@ class RootScreen extends StatefulWidget {
   State<RootScreen> createState() => _RootScreenState();
 }
 
-late List<Widget> screens;
-int currentIndex = 0;
-late PageController _controller;
-
 class _RootScreenState extends State<RootScreen> {
+  late List<Widget> screens;
+  late PageController _controller;
+
+  int currentIndex = 0;
+
   @override
   void initState() {
     super.initState();
     currentIndex = 0;
-    BlocProvider.of<GetProductsCubit>(context).getProducts();
-    BlocProvider.of<CategoryCubit>(context).getCategories();
-    context.read<ProfileCubit>().getProfile();
+    context.read<GetProductsCubit>().getProducts();
+    context.read<CategoryCubit>().getCategories();
 
     screens = [
       HomeScreen(),

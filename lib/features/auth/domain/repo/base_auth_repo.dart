@@ -1,4 +1,5 @@
 import 'package:hungry/core/errors/failure.dart';
+import 'package:hungry/features/auth/data/model/logout_response_model.dart';
 import 'package:hungry/features/auth/data/model/user_model.dart';
 import 'package:dartz/dartz.dart';
 
@@ -13,5 +14,5 @@ abstract class BaseAuthRepo {
     required String email,
     required String password,
   });
-  Future<Either<Failure, void>> logout();
+  Future<Either<Failure, LogoutResponseModel>> logout();
 }
